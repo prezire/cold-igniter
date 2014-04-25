@@ -1,9 +1,23 @@
 <?php
   class Generate extends CI_Controller
   {
+    private $GENERATE_PATH = './application/third_party/generators';
+    private $sViewFldr;
+    private $sAuthFldr;
+    public function __construct()
+    {
+      $this->load->helper('inflector');
+      $this->load->library('parser');
+      $this->load->helper('file');
+      $s = $this->GENERATE_PATH;
+      if(!file_exists($s))
+      {
+        mkdir($s);
+      }
+    }
     /*
       @param  $entity   String.
-      @param  $fields   String. Dash-delimited.
+      @param  $fields   String. Colon-delimited. field_name:data_type
       
       Usage: 
 		- php index.php generate crud sub_page id:int title:varchar description:text enabled:boolean
@@ -22,17 +36,10 @@
         - subpage/read
         - subpage/update
     */
-    private $GENERATE_PATH = './application/views/generators/cruds';
-	private $sViewFldr;
-	//
     public final function crud()
     {
       if($this->input->is_cli_request())
       {
-        $this->load->helper('inflector');
-        $this->load->library('parser');
-		$this->load->helper('file');
-		//
 		$params = $_SERVER['argv'];
 		$fields = array();
 		$len = $_SERVER['argc'];
@@ -40,11 +47,11 @@
 		$entity = $params[3];
 		echo "Generating...\n";
 		//
-		$this->sViewFldr = $this->GENERATE_PATH . '/' . plural($entity);
+		$this->sViewFldr = $this->GENERATE_PATH . '/cruds/' . plural($entity);
 		if(!file_exists($this->sViewFldr))
 		{
 			mkdir($this->sViewFldr);
-			echo "New directory $this->sViewFldr created.\n";
+			$this->echoFileCreated('New directory', $this->sViewFldr);
 		}
 		//
         $this->createCtrl($entity);
@@ -81,22 +88,22 @@
 		 }
 		 $contents .=  'PRIMARY KEY (id))';
 		 $filename = $this->sViewFldr . '/' . $entity . '_table.php';
-		 $f = write_file($filename . '.php', $contents);
-		echo "Database table file $filename created.\n";
+		 write_file($filename . '.php', $contents);
+    $this->echoFileCreated('Database table', $filename);
 	}
     private final function createCtrl($entity)
     {
       $filename = $this->sViewFldr . '/' . str_replace('_', '', $entity) . '.php';
       $contents = $this->parser->parse('generators/controller', array('entity' => $entity), true);
-	  $f = write_file($filename . '.php', $contents);
-	  echo "Controller file $filename created.\n";
+      write_file($filename . '.php', $contents);
+      $this->echoFileCreated('Controller', $filename);
     }
     private final function createMdl($entity)
     {
       $filename = $this->sViewFldr . '/' . str_replace('_', '', $entity) . 'model.php';
       $contents = $this->parser->parse('generators/model', array('entity' => $entity), true);
 	  write_file($filename . '.php', $contents);
-	  echo "Model file $filename created.\n";
+      $this->echoFileCreated('Model', $filename);
     }
     private final function createViews($entity, $fields = array())
     {
@@ -186,8 +193,8 @@
         array('entity' => $entity, 'fields' => $fields),
         true
       );
-      echo "View file $filename created.\n";
-	  write_file($filename, $contents);
+      write_file($filename, $contents);
+      $this->echoFileCreated('View', $filename);
     }
     private final function createValidation($entity)
     {
@@ -198,7 +205,60 @@
         true
       );
       $filename = $this->sViewFldr . '/form_validation.php';
-	  write_file($filename, $contents);
-	  echo "Validation file $filename created.\n";
+      write_file($filename, $contents);
+      $this->echoFileCreated('Validation', $filename);
+    }
+    private final function echoFileCreated
+    (
+      $type, 
+      $filename
+    )
+    {
+      echo "$type file $filename created.\n";
+    }
+    //
+    public final function privilages(){}
+    /*
+      Usage: php index.php generate auth
+      Separated from CRUD for modularity purposes.
+    */
+    public final function auth()
+    {
+      if($this->input->is_cli_request())
+      {
+        echo "Generating...\n";
+        $sAuthFldr = $this->GENERATE_PATH . '/auth';
+        if(!file_exists($sAuthFldr))
+        {
+          mkdir($sAuthFldr);
+          $this->echoFileCreated('New directory', $sAuthFldr);
+        }
+        $this->createAuthCtrl();
+        $this->createAuthMdl();
+        $this->createAuthValidation();
+        echo "Done.\n";
+      }
+      exit(0);
+    }
+    private final function createAuthCtrl()
+    {
+      $filename = $this->sAuthFldr . '/auth.php';
+      $contents = $this->parser->parse('generators/auth/controller', null, true);
+      write_file($filename . '.php', $contents);
+      $this->echoFileCreated('Controller', $filename);
+    }
+    private final function createAuthMdel()
+    {
+      $filename = $this->sAuthFldr . '/authmodel.php';
+      $contents = $this->parser->parse('generators/auth/model', null, true);
+      write_file($filename . '.php', $contents);
+      $this->echoFileCreated('Model', $filename);
+    }
+    private final function createAuthValidation()
+    {
+      $filename = $this->sAuthFldr . '/form_validation.php';
+      $contents = $this->parser->parse('generators/auth/form_validation', null, true);
+      write_file($filename . '.php', $contents);
+      $this->echoFileCreated('Validation', $filename);
     }
   }
