@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'ITCFranklinGothicStdDemi';
+    src: url('itcfranklingothicstd-demi_0.eot');
+    src: url('itcfranklingothicstd-demi_0.eot') format('embedded-opentype'),
+         url('itcfranklingothicstd-demi_0.woff') format('woff'),
+         url('itcfranklingothicstd-demi_0.ttf') format('truetype'),
+         url('itcfranklingothicstd-demi_0.svg#ITCFranklinGothicStdDemi') format('svg');
+}

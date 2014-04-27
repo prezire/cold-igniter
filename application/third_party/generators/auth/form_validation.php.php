@@ -1,5 +1,4 @@
-<?php echo '<?php'; ?>
-
+<?php
   $config = array
   (
     'auth' => array

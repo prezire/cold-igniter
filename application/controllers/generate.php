@@ -2,10 +2,11 @@
   class Generate extends CI_Controller
   {
     private $GENERATE_PATH = './application/third_party/generators';
-    private $sViewFldr;
+    private $sCrudViewFldr;
     private $sAuthFldr;
     public function __construct()
     {
+      parent::__construct();
       $this->load->helper('inflector');
       $this->load->library('parser');
       $this->load->helper('file');
@@ -46,19 +47,25 @@
 		for($a = 4; $a < $len; $a++){array_push($fields, $params[$a]);}
 		$entity = $params[3];
 		echo "Generating...\n";
-		//
-		$this->sViewFldr = $this->GENERATE_PATH . '/cruds/' . plural($entity);
-		if(!file_exists($this->sViewFldr))
+		//Create initial CRUD dir.
+    $this->sCrudViewFldr = $this->GENERATE_PATH . '/cruds';
+		if(!file_exists($this->sCrudViewFldr))
 		{
-			mkdir($this->sViewFldr);
-			$this->echoFileCreated('New directory', $this->sViewFldr);
+			mkdir($this->sCrudViewFldr);
+		}
+    //Create inner CRUD dir related to the new entity.
+		$this->sCrudViewFldr .= '/' . plural($entity);
+		if(!file_exists($this->sCrudViewFldr))
+		{
+			mkdir($this->sCrudViewFldr);
+			$this->echoFileCreated('New directory', $this->sCrudViewFldr);
 		}
 		//
-        $this->createCtrl($entity);
-        $this->createMdl($entity);
-        $this->createViews($entity, $fields);
-		$this->createValidation($entity);
-		$this->createTable($entity, $fields);
+        $this->createCrudCtrl($entity);
+        $this->createCrudMdl($entity);
+        $this->createCrudViews($entity, $fields);
+      $this->createCrudValidation($entity);
+      $this->createTable($entity, $fields);
 		echo "Done.\n";
       }
       exit(0);
@@ -87,25 +94,25 @@
 			$contents .= ",\n";
 		 }
 		 $contents .=  'PRIMARY KEY (id))';
-		 $filename = $this->sViewFldr . '/' . $entity . '_table.php';
+		 $filename = $this->sCrudViewFldr . '/' . $entity . '_table.php';
 		 write_file($filename . '.php', $contents);
     $this->echoFileCreated('Database table', $filename);
 	}
-    private final function createCtrl($entity)
+    private final function createCrudCtrl($entity)
     {
-      $filename = $this->sViewFldr . '/' . str_replace('_', '', $entity) . '.php';
-      $contents = $this->parser->parse('generators/controller', array('entity' => $entity), true);
+      $filename = $this->sCrudViewFldr . '/' . str_replace('_', '', $entity) . '.php';
+      $contents = $this->parser->parse('generators/cruds/controller', array('entity' => $entity), true);
       write_file($filename . '.php', $contents);
       $this->echoFileCreated('Controller', $filename);
     }
-    private final function createMdl($entity)
+    private final function createCrudMdl($entity)
     {
-      $filename = $this->sViewFldr . '/' . str_replace('_', '', $entity) . 'model.php';
-      $contents = $this->parser->parse('generators/model', array('entity' => $entity), true);
+      $filename = $this->sCrudViewFldr . '/' . str_replace('_', '', $entity) . 'model.php';
+      $contents = $this->parser->parse('generators/cruds/model', array('entity' => $entity), true);
 	  write_file($filename . '.php', $contents);
       $this->echoFileCreated('Model', $filename);
     }
-    private final function createViews($entity, $fields = array())
+    private final function createCrudViews($entity, $fields = array())
     {
       $fldr = plural($entity);
       $a = array();
@@ -186,25 +193,25 @@
     }
     private final function createView($entity, $fields, $type)
     {
-		$filename = $this->sViewFldr . '/' . $type . '.php';
+		$filename = $this->sCrudViewFldr . '/' . $type . '.php';
       $contents = $this->parser->parse
       (
-        'generators/' . $type, 
+        'generators/cruds/' . $type, 
         array('entity' => $entity, 'fields' => $fields),
         true
       );
       write_file($filename, $contents);
       $this->echoFileCreated('View', $filename);
     }
-    private final function createValidation($entity)
+    private final function createCrudValidation($entity)
     {
 	   $contents = $this->parser->parse
       (
-        'generators/form_validation', 
+        'generators/cruds/form_validation', 
         array('entity' => str_replace('_', '', $entity)),
         true
       );
-      $filename = $this->sViewFldr . '/form_validation.php';
+      $filename = $this->sCrudViewFldr . '/form_validation.php';
       write_file($filename, $contents);
       $this->echoFileCreated('Validation', $filename);
     }
@@ -214,51 +221,8 @@
       $filename
     )
     {
-      echo "$type file $filename created.\n";
+      echo "$type $filename created.\n";
     }
     //
     public final function privilages(){}
-    /*
-      Usage: php index.php generate auth
-      Separated from CRUD for modularity purposes.
-    */
-    public final function auth()
-    {
-      if($this->input->is_cli_request())
-      {
-        echo "Generating...\n";
-        $sAuthFldr = $this->GENERATE_PATH . '/auth';
-        if(!file_exists($sAuthFldr))
-        {
-          mkdir($sAuthFldr);
-          $this->echoFileCreated('New directory', $sAuthFldr);
-        }
-        $this->createAuthCtrl();
-        $this->createAuthMdl();
-        $this->createAuthValidation();
-        echo "Done.\n";
-      }
-      exit(0);
-    }
-    private final function createAuthCtrl()
-    {
-      $filename = $this->sAuthFldr . '/auth.php';
-      $contents = $this->parser->parse('generators/auth/controller', null, true);
-      write_file($filename . '.php', $contents);
-      $this->echoFileCreated('Controller', $filename);
-    }
-    private final function createAuthMdel()
-    {
-      $filename = $this->sAuthFldr . '/authmodel.php';
-      $contents = $this->parser->parse('generators/auth/model', null, true);
-      write_file($filename . '.php', $contents);
-      $this->echoFileCreated('Model', $filename);
-    }
-    private final function createAuthValidation()
-    {
-      $filename = $this->sAuthFldr . '/form_validation.php';
-      $contents = $this->parser->parse('generators/auth/form_validation', null, true);
-      write_file($filename . '.php', $contents);
-      $this->echoFileCreated('Validation', $filename);
-    }
   }
