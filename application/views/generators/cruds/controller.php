@@ -48,7 +48,7 @@ class <?php echo $className; ?> extends CI_Controller
   }
 	public final function read($id)
 	{
-		showView('<?php echo $plr; ?>/read', array('<?php echo $cml; ?>' => $this-><?php echo $mdl; ?>->read($id)->row())));
+		showView('<?php echo $plr; ?>/read', array('<?php echo $cml; ?>' => $this-><?php echo $mdl; ?>->read($id)->row()));
 	}
 	public final function update($id = null)
   {
@@ -80,6 +80,6 @@ class <?php echo $className; ?> extends CI_Controller
   }
 	public final function delete($id)
   {
-    showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $cml; ?>_model->delete($id)->row())));
+    showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $cml; ?>_model->delete($id)->row()));
   }
 }

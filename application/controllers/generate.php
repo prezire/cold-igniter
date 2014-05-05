@@ -76,9 +76,11 @@
 		(
 			'int' => 'INT',
 			'varchar' => 'VARCHAR(255)',
+			'datetime' => 'DATETIME',
 			'text' => 'TEXT',
 			'boolean' => 'TINYINT(1)'
 		);
+		$entity = plural($entity);
 		$contents = "CREATE TABLE $entity(";
 		foreach($fields as $f)
 		{
@@ -94,20 +96,20 @@
 			$contents .= ",\n";
 		 }
 		 $contents .=  'PRIMARY KEY (id))';
-		 $filename = $this->sCrudViewFldr . '/' . $entity . '_table.php';
-		 write_file($filename . '.php', $contents);
+		 $filename = $this->sCrudViewFldr . '/' . $entity . '_table';
+		 write_file($filename . '.sql', $contents);
     $this->echoFileCreated('Database table', $filename);
 	}
     private final function createCrudCtrl($entity)
     {
-      $filename = $this->sCrudViewFldr . '/' . str_replace('_', '', $entity) . '.php';
+      $filename = $this->sCrudViewFldr . '/' . str_replace('_', '', $entity);
       $contents = $this->parser->parse('generators/cruds/controller', array('entity' => $entity), true);
       write_file($filename . '.php', $contents);
       $this->echoFileCreated('Controller', $filename);
     }
     private final function createCrudMdl($entity)
     {
-      $filename = $this->sCrudViewFldr . '/' . str_replace('_', '', $entity) . 'model.php';
+      $filename = $this->sCrudViewFldr . '/' . str_replace('_', '', $entity) . 'model';
       $contents = $this->parser->parse('generators/cruds/model', array('entity' => $entity), true);
 	  write_file($filename . '.php', $contents);
       $this->echoFileCreated('Model', $filename);
