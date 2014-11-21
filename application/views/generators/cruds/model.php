@@ -22,21 +22,18 @@
 		public final function create()
 		{
 			$i = $this->input;
-			if($i->post())
-			{
-				$this->db->insert
-				(
-					'<?php echo $plr; ?>', 
-					getPostValuePair()
-				);
-				return $this->read($this->db->insert_id());
-			}
+			$this->db->insert
+			(
+				'<?php echo $plr; ?>', 
+				getPostValuePair()
+			);
+			return $this->read($this->db->insert_id());
 		}
 		public final function read($id)
 		{
       return $this->db->get_where
       (
-        '<?php echo $initial; ?>', 
+        '<?php echo $plr; ?>', 
         array('id' => $id)
       );
 		}
@@ -50,11 +47,10 @@
         '<?php echo $plr; ?>', 
         getPostValuePair()
       );
-			return $this->db->affected_rows() > 0;
 		}
 		public final function delete($id)
     {
-      $this->db->where('<?php echo $initial; ?>.id', $id);
+      $this->db->where('<?php echo $entity; ?>.id', $id);
 			return $this->db->delete();
     }
 	}

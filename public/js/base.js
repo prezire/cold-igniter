@@ -9,4 +9,3 @@ function ColdIgniter()
 		//
 	};
 }
-$(document).ready(function(){new ColdIgniter().init();});

@@ -1,6 +1,6 @@
 <?php 
 	echo '<?php';
-	$meths = array('create', 'read', 'update');
+	$meths = array('create', 'update');
 ?>
 
 $config = array

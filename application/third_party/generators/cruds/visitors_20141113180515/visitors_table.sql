@@ -1,0 +1,8 @@
+CREATE TABLE visitors(id INT NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
+purpose TEXT NOT NULL,
+person_to_visit VARCHAR(255) NOT NULL,
+company VARCHAR(255) NOT NULL,
+date_time_in VARCHAR(255) NOT NULL,
+date_time_out VARCHAR(255) NOT NULL,
+PRIMARY KEY (id))

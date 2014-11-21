@@ -48,13 +48,14 @@
 		$entity = $params[3];
 		echo "Generating...\n";
 		//Create initial CRUD dir.
-    $this->sCrudViewFldr = $this->GENERATE_PATH . '/cruds';
+		//Use date for versioning.
+		$d = date('YmdHis');
+		$this->sCrudViewFldr = $this->GENERATE_PATH . '/cruds/' . plural($entity) . '_' . $d;
+		//
 		if(!file_exists($this->sCrudViewFldr))
 		{
 			mkdir($this->sCrudViewFldr);
 		}
-    //Create inner CRUD dir related to the new entity.
-		$this->sCrudViewFldr .= '/' . plural($entity);
 		if(!file_exists($this->sCrudViewFldr))
 		{
 			mkdir($this->sCrudViewFldr);

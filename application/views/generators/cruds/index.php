@@ -1,4 +1,5 @@
-<div id="<?php echo $entity; ?>" class="index">
+<div id="<?php echo $entity; ?>" class="index row">
+  <h4></h4>
 	<table>
 		<thead>
 			<tr>
@@ -9,21 +10,29 @@
 			</tr>
 		</thead>
 		<tbody>
+      <?php
+        $ctrl = str_replace('_', '', $entity);
+				$cml = camelize($entity);
+        //
+        $first = substr($cml, 0, 1);
+        echo '<?php foreach($' . plural($cml) . ' as $' . $first . '){ ?>';
+      ?>
+      
 			<tr>
 				<?php 
-					$ctrl = str_replace('_', '', $entity);
-					$cml = camelize($entity);
 					foreach($fields as $f)
 					{
 				?>
-					<td><?php echo '<?php echo $' . $cml . '->' . $f['name'] . '; ?>'; ?></td>
+					<td><?php echo '<?php echo $' . $first . '->' . $f['name'] . '; ?>'; ?></td>
 				<?php } ?>
 				<td>
-					<a href="<?php echo "<?php echo site_url('$ctrl" . "/read/' . $" . "$cml" . "->" . '$id); ?>'; ?>">View</a> | 
-					<a href="<?php echo "<?php echo site_url('$ctrl" . "/update/' . $" . "$cml" . "->" . '$id); ?>'; ?>">Update</a> | 
-					<a href="<?php echo "<?php echo site_url('$ctrl" . "/delete/' . $" . "$cml" . "->" . '$id); ?>'; ?>">Delete</a>
+					<a href="<?php echo "<?php echo site_url('$ctrl" . "/read/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button radius small">View</a>
+					<a href="<?php echo "<?php echo site_url('$ctrl" . "/update/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button radius small">Update</a>
+					<a href="<?php echo "<?php echo site_url('$ctrl" . "/delete/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button radius small alert">Delete</a>
 				</td>
 			</tr>
+      <?php echo '<?php } ?>'; ?>
+      
 		</tbody>
 	</table>
 </div>
