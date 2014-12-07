@@ -13,6 +13,20 @@
     }
     return $list;
   }
+  /*
+  * Serializes string-based URL params into array. The parameter 
+  * must be at the last portion of the parameter list.
+  * @param    $fromIndex    1-based index.
+  * @return   array.
+  */
+  function getArrayParams($fromIndex)
+  {
+    $CI = get_instance();
+    $a = $CI->uri->segment_array();
+    $toIndex = count($a) - 1;
+    $a = array_slice($a, $fromIndex, $toIndex);
+    return $a;
+  }
   function getLoggedUser()
   {
     $CI = get_instance();

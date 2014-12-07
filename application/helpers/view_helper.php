@@ -2,9 +2,9 @@
   function showView($view, $data = null)
   {
     $CI = get_instance();
-    $CI->show->view('commons/layouts/header', $data);
-    $CI->show->view($view, $data);
-    $CI->show->view('commons/layouts/footer', $data);
+    $CI->load->view('commons/layouts/header', $data);
+    $CI->load->view($view, $data);
+    $CI->load->view('commons/layouts/footer', $data);
   }
   function showJsonView($data)
   {
