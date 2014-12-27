@@ -30,7 +30,23 @@ class Permission extends CI_Controller
     }
   }
   public final function read( $id ) {
-    showView( 'permissions/read', array( 'permission' => $this->permissionmodel->read( $id )->row() ) );
+    showView( 'permissions/read', array
+    ( 
+      'permission' => 
+      $this->permissionmodel->read( $id )->row() ) 
+    );
+  }
+  public final function updateByPrivilegeId($id, $privilegeId, $selected)
+  {
+    $a = array
+    (
+      'updated' => 
+      $this->permissionmodel->updateByPrivilegeId
+      (
+        $id, $privilegeId, $selected
+      )->row_array()
+    );
+    showJsonView($a);
   }
   public final function update( $id = null ) {
     $o = $this->permissionmodel->read( $id )->row();

@@ -1,9 +1,8 @@
 $(document).ready(function(){
   function Fb()
   {
-    this.appId;
-    this.init = function(appId){
-      this.appId = appId;
+    this.init = function()
+    {
       //Load the SDK asynchronously.
       (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -14,21 +13,28 @@ $(document).ready(function(){
       }(document, 'script', 'facebook-jssdk'));
       this.setListeners();
     };
-    this.setListeners = function(){
+    this.setListeners = function()
+    {
       var o = this;
-      //
-      window.fbAsyncInit = function(){
+      window.fbAsyncInit = function()
+      {
         FB.init({
-          appId      : this.appId,
+          appId: $('.btnFb').attr('appId'),
           //Enable cookies to allow the server to access the session.
-          cookie     : true,
+          cookie: true,
           //Parse social plugins on this page.
-          xfbml      : true,
-          version    : 'v2.1'
+          xfbml: true,
+          version: 'v2.1'
         });
       };
       $('.btnFb').click(function(e){
-        //<a class="btnFb" permissions="public_profile,email,user_location,user_birthday">FB Login</a>
+        /*
+          <a class="btnFb" 
+              appId="748620185222813" 
+              permissions="public_profile,email,user_location,user_birthday">
+              FB Login
+          </a>
+        */
         e.preventDefault();
         o.fbCheckLoginStatus($(this).attr('permissions'));
       });
@@ -99,11 +105,7 @@ $(document).ready(function(){
     //Public callback when the user logs in successfully and 
     //the FB API request is made about the user info.
     this.onUserInfoFetched = function(response){
-      var email = response.email;
-        var name = response.name;
-        console.log('Thanks for logging in, ' + name + '!');
-        //Send to server-side and create a session using params.
-        //$.ajax({url: 'auth/fbLogin/' + email + '/' + name + '/' + userId, success: function(response){}});
+      //Public callback.
     };
     this.fbLogin = function(permissions)
     {
@@ -125,6 +127,13 @@ $(document).ready(function(){
     };
   }
   var f = new Fb();
-  f.onUserInfoFetched = function(response){};
-  f.init('748620185222813');
+  f.onUserInfoFetched = function(response)
+  {
+    var email = response.email;
+    var name = response.name;
+    console.log('Thanks for logging in, ' + name + '!');
+    //Send to server-side and create a session using params.
+    //$.ajax({url: 'auth/fbLogin/' + email + '/' + name + '/' + userId, success: function(response){}});
+  };
+  f.init();
 });

@@ -31,7 +31,7 @@
         }
         else
         {
-          showView('auth/login');
+          showView('auth/login', array('error' => true));
         }
       }
       else
@@ -61,8 +61,8 @@
       )->result_array();
       return array_intersect($privilegeNames, $a);
     }
-    //curl http://localhost/cold-igniter/index.php/auth/manage
-    public final function manage() {
+    //curl http://localhost/cold-igniter/index.php/auth
+    public final function index() {
       //$u = getLoggedUser();
       //
       $this->load->model('usermodel');
@@ -80,7 +80,7 @@
           $users[$u->id] = $u->complete_name;
         }
         $a = array('users' => $users);
-        showView( 'auth/privileges/manage', $a );
+        showView( 'auth/index', $a );
       }
       else {
         redirect( site_url() );

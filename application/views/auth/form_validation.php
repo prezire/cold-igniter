@@ -6,15 +6,15 @@
     (
       array
       (
-        'field' => 'username',
-        'label' => 'Username',
-        'rules' => 'required'
+        'field' => 'email',
+        'label' => 'Email',
+        'rules' => 'required|valid_email|trim|xss_clean'
       ),
       array
       (
         'field' => 'password',
         'label' => 'Password',
-        'rules' => 'required'
+        'rules' => 'required|trim|xss_clean'
       )
     )
   );

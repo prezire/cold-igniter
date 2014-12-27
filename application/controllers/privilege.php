@@ -32,9 +32,9 @@ class Privilege extends CI_Controller
   public final function read( $id ) {
     showView( 'privileges/read', array( 'privilege' => $this->privilegemodel->read( $id )->row() ) );
   }
-  public final function readPrivilegesByUserId($userId)
+  public final function readUserPrivilegeDetailsByUserId($userId)
   {
-    $a = array('privileges' => $this->privilegemodel->readPrivilegesByUserId($userId)->result());
+    $a = array('privileges' => $this->privilegemodel->readPrivilegeDetailsByUserId($userId));
     showJsonView($a);
   }
   public final function update( $id = null ) {

@@ -29,10 +29,23 @@ class PermissionModel extends CI_Model {
 		$this->db->join( 'roles r', 'u.role_id = r.id' );
 		$this->db->join( 'role_privileges rp', 'r.id = rp.role_id' );
 		$this->db->join( 'privileges pv', 'pv.id = rp.privilege_id' );
-		$this->db->join( 'role_privilege_permissions pp' , 'pp.role_privilege_id = rp.id' );
+		$this->db->join( 'privilege_permissions pp' , 'pp.role_privilege_id = rp.id' );
 		$this->db->join( 'permissions pm', 'pm.id = pp.permission_id' );
 		$this->db->where( 'u.id', $userId );
 		$this->db->where( 'pv.name', $privilegeName );
 		return $this->db->get();
+	}
+	public final function updateByPrivilegeId
+	(
+		$id, 
+		$privilegeId, 
+		$selected //TODO: Create selected field in table.
+	)
+	{
+		$this->db->where('id', $id);
+		$this->db->where('privilege_id', $privilegeId);
+		$a = array('selected' => $selected);
+		$this->db->update('permissions', $a);
+		return $this->db->get();	
 	}
 }

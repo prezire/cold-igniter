@@ -1,7 +1,10 @@
 /*http://www.fontsquirrel.com/tools/webfont-generator.*/
 
 /* Define mobile styles */
-@media only screen { } 
+@media only screen 
+{ 
+	.alert-box p{margin: 0;}
+} 
 
  /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) { }
