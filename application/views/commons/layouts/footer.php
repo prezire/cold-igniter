@@ -2,7 +2,8 @@
 		<div class="row">
 		  <div class="small-12 medium-12 large-12 columns">
 		  	<footer>
-				Copyright &copy; 2014 ColdIgniter. All Rights Reserved.
+				Copyright &copy; 2015 ColdIgniter by 
+				<a href="http://www.simplifie.net" target="_blank">Simplifie</a>. All Rights Reserved.
 			</footer>
 		  </div>
 		</div>

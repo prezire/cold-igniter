@@ -36,19 +36,26 @@
   {
     return getLoggedUser() != null;
   }
-  function isPermitted($permissionName)
+  function hasPrivilege($privilegeName)
   {
     $CI = get_instance();
-    $uId = getLoggedUser()->id;
-    $CI->db->select('id');
-    $CI->db->from('permitted_roles pr');
-    $CI->db->join('roles r', 'r.id = pr.role_id');
-    $CI->db->join('users u', 'u.role_id = r.id');
-    $CI->db->join('permissions p', 'p.id = pr.permission_id');
-    $CI->db->where('r.id', $uId);
-    $CI->db->where('p.name', $permissionName);
-    $CI->db->get();
-    return $CI->db->num_rows() > 0;
+    $CI->load->model('permissionmodel');
+    return $CI->permissionmodel->readHasPrivilege($privilegeName);
+  }
+  /*
+    Usage:
+    hasPermissions('Page');
+    hasPermissions('Page', array('Create', 'Update'));
+  */
+  function hasPermissions
+  (
+    $privilegeName, 
+    $permissions = array('Create', 'Read', 'Update', 'Delete')
+  )
+  {
+    $CI = get_instance();
+    $CI->load->model('permissionmodel');
+    return $CI->permissionmodel->readHasPermissions($privilegeName, $permissions);
   }
   function sendEmailer
   (

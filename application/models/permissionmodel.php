@@ -84,6 +84,39 @@ class PermissionModel extends CI_Model {
 		}
 		return array('users' => $aUsers);
 	}
+	public final function readHasPrivilege($privilegeName)
+	{
+		$pId = $this->db->get_where
+		(
+			'privileges', 
+			array('name' => $privilegeName)
+		)->row()->id;
+		$uId = getLoggedUser()->id;
+		return $this->hasPrivilege($uId, $pId);
+	}
+	public final function readHasPermissions
+	(
+		$privilegeName, 
+		$permissions = array('Create', 'Read', 'Update', 'Delete')
+	)
+	{
+		$bPriv = $this->readHasPrivilege($privilegeName);
+		$i = 0;
+		$aPerms = $this->db->get('permissions')->result();
+		foreach($aPerms as $ap)
+		{
+			foreach($permissions as $p)
+			{
+				if(p == $ap->name)
+				{
+					$i++;
+					break;
+				}
+			}
+		}
+		$bPerm = count($permissions) == $i;
+		return $bPerm && $bPriv;
+	}
 	private final function hasPrivilege($userId, $privilegeId)
 	{
 		$bHasPriv = $this->db->get_where

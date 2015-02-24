@@ -16,5 +16,14 @@
         'label' => 'Password',
         'rules' => 'required|trim|xss_clean|min_length[1]'
       )
+    ),
+    'user/update' => array
+    (
+      array
+      (
+        'field' => 'email',
+        'label' => 'Email',
+        'rules' => 'required|valid_email|trim|xss_clean'
+      )
     )
   );

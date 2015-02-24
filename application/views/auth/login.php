@@ -19,22 +19,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="small-12 medium-12 large-12 columns">
+      <div class="small-12 medium-12 large-6 columns">
         Email: <input type="text" name="email" value="<?php echo set_value('email'); ?>" />
       </div>
-    </div>
-    <div class="row">
-      <div class="small-12 medium-12 large-12 columns">
+      <div class="small-12 medium-12 large-6 columns">
         Password: <input type="password" name="password" />
       </div>
-    </div>
-    <div class="row">
-      <div class="small-12 medium-12 large-12 columns">
-        <button class="tiny radius">Login</button>
+      <div class="small-12 medium-12 large-1 columns">
+        <button class="tiny">Login</button>
       </div>
-    </div>
-    <div class="row">
-      <div class="small-12 medium-12 large-12 columns">
+      <div class="small-12 medium-12 large-11 columns">
         <a href="<?php echo site_url('auth/create'); ?>">Register</a> |
         <a href="<?php echo site_url('auth/forgotPassword'); ?>">Forgot Password</a>
       </div>

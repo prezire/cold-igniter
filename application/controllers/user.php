@@ -5,6 +5,7 @@ class User extends CI_Controller
 	{
 		parent::__construct();
     $this->load->model('usermodel');
+    $this->load->helper('country_helper');
 	}
   public final function index()
   {
@@ -43,21 +44,19 @@ class User extends CI_Controller
 	}
 	public final function update($id = null)
   {
+    $this->load->model('rolemodel');
     $o = $this->usermodel->read($id)->row();
-    $a = array('user' => $o);
+    $a = array
+    (
+      'user' => $o,
+      'roles' => $this->rolemodel->index()->result_array()
+    );
     if($this->input->post())
     {
-      if($this->form_validation->run())
+      if($this->form_validation->run('user/update'))
       {
-        $b = $this->usermodel->update()->row();
-        if($b)
-        {
-          redirect(site_url('user/read/' . $o->id));
-        }
-        else
-        {
-          show_error('Error updating user.');
-        }
+        $this->usermodel->update();
+        redirect(site_url('user/update/' . $this->input->post('id')));
       }
       else
       {
