@@ -6,9 +6,14 @@ class Permission extends CI_Controller
     parent::__construct();
     $this->load->model( 'permissionmodel' );
   }
-  public final function index() {
-    $o = $this->permissionmodel->index()->result();
-    showView( 'permissions/index', array( 'permissions' => $o ) );
+
+  public final function index(){}
+  public final function userPermission() 
+  {
+    $this->load->model('usermodel');
+    $a = $this->permissionmodel->readUserPermissions();
+    $a['permissions'] = $this->permissionmodel->index()->result_array();
+    showView( 'auth/permissions/index', $a );
   }
   public final function create() {
     if ( $this->input->post() ) {
@@ -36,17 +41,37 @@ class Permission extends CI_Controller
       $this->permissionmodel->read( $id )->row() ) 
     );
   }
-  public final function updateByPrivilegeId($id, $privilegeId, $selected)
+  public final function updateUserPrivilege
+  (
+    $userId,
+    $privilegeId, 
+    $selected
+  )
   {
-    $a = array
+    $b = $this->permissionmodel->updateUserPrivilege
     (
-      'updated' => 
-      $this->permissionmodel->updateByPrivilegeId
-      (
-        $id, $privilegeId, $selected
-      )->row_array()
+      $userId,
+      $privilegeId, 
+      $selected
     );
-    showJsonView($a);
+    showJsonView(array('success' => $b));
+  }
+  public final function updateUserPermissions
+  (
+    $userId,
+    $privilegeId, 
+    $permissionId,
+    $selected
+  )
+  {
+    $this->permissionmodel->updateUserPermissions
+    (
+      $userId,
+      $privilegeId, 
+      $permissionId,
+      $selected
+    );
+    showJsonView(array('success' => true));
   }
   public final function update( $id = null ) {
     $o = $this->permissionmodel->read( $id )->row();

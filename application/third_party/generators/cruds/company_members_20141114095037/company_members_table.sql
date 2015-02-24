@@ -1,4 +1,0 @@
-CREATE TABLE company_members(id INT NOT NULL AUTO_INCREMENT,
-company_id INT NOT NULL,
-editor_id INT NOT NULL,
-PRIMARY KEY (id))

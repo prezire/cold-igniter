@@ -1,47 +1,157 @@
 <?php
 class PermissionModel extends CI_Model {
 	//Permissions only consists of enum CRUD.
-	const CREATE = 'Create';
+	/*const CREATE = 'Create';
 	const READ = 'Read';
 	const UPDATE = 'Update';
-	const DELETE = 'Delete';
+	const DELETE = 'Delete';*/
 	//
-	public function __construct() {
+	public function __construct()
+	{
 		//
 	}
-	/*
-		SELECT * FROM users u
-		INNER JOIN roles r ON u.role_id = r.id
-		INNER JOIN role_privileges rp ON r.id = rp.role_id
-		INNER JOIN privileges pv ON pv.id = rp.privilege_id
-		INNER JOIN role_privilege_permissions rpp ON rpp.role_privilege_id = pv.id
-		INNER JOIN permissions pm ON pm.id = rpp.permission_id
-		WHERE u.id = 7 AND pv.name = 'User'
-	*/
-	public final function readPermissions
+	public final function index()
+	{
+		return $this->db->get('permissions');
+	}
+	public final function readUserPermissions()
+	{
+		$this->db->select
+		(
+			'*, 
+			u.id user_id, 
+			r.id role_id, 
+			r.name role_name'
+		);
+		$this->db->from('users u');
+		$this->db->join('roles r', 'u.role_id = r.id');
+		$users = $this->db->get()->result();
+		$aUsers = array();
+		foreach($users as $u)
+		{
+			$aUser = array
+			(
+				'id' => $u->user_id,
+				'full_name' => $u->full_name,
+				'role' => $u->role_name
+			);
+			//
+			$aUser['privileges'] = array();
+			/*$this->db->select('pv.*');
+			$this->db->from('privileges pv');
+			$this->db->join
+			(
+				'privilege_permissions pp', 
+				'pp.privilege_id = pv.id'
+			);
+			$this->db->group_by('pv.id');
+			$this->db->where('pp.user_id', $u->user_id);
+			$privileges = $this->db->get()->result();*/
+			$privileges = $this->db->get('privileges')->result();
+			foreach($privileges as $pv)
+			{
+				$aPrivilege = array
+				(
+					'id' => $pv->id, 
+					'name' => $pv->name,
+					'checked' => $this->hasPrivilege($u->user_id, $pv->id)
+				);
+				//
+				$this->db->select('pm.*');
+				$this->db->from('permissions pm');
+				$this->db->join
+				(
+					'privilege_permissions pp', 
+					'pp.permission_id = pm.id'
+				);
+				$this->db->where('pp.user_id', $u->user_id);
+				$this->db->where('pp.privilege_id', $pv->id);
+				$permissions = $this->db->get()->result();
+				//
+				$aPrivilege['permissions'] = array();
+				foreach($permissions as $pp)
+				{
+					$aPermission = array
+					(
+						'id' => $pp->id, 
+						'name' => $pp->name
+					);
+					array_push($aPrivilege['permissions'], $aPermission);
+				}
+				array_push($aUser['privileges'], $aPrivilege);
+			}
+			array_push($aUsers, $aUser);
+		}
+		return array('users' => $aUsers);
+	}
+	private final function hasPrivilege($userId, $privilegeId)
+	{
+		$bHasPriv = $this->db->get_where
+		(
+			'privilege_permissions pp', 
+			array
+			(
+				'pp.user_id' => $userId,
+				'pp.privilege_id' => $privilegeId
+			)
+		)->num_rows() > 0;
+		return $bHasPriv;
+	}
+	public final function updateUserPrivilege
 	(
 		$userId,
-		$privilegeName,
-		$requestedPermissions
-	) {
-		$this->db->select( 'pm.name' );
-		$this->db->from( 'users u' );
-		$this->db->join( 'roles r', 'u.role_id = r.id' );
-		$this->db->join( 'role_privileges rp', 'r.id = rp.role_id' );
-		$this->db->join( 'privileges pv', 'pv.id = rp.privilege_id' );
-		$this->db->join( 'privilege_permissions pp' , 'pp.role_privilege_id = rp.id' );
-		$this->db->join( 'permissions pm', 'pm.id = pp.permission_id' );
-		$this->db->where( 'u.id', $userId );
-		$this->db->where( 'pv.name', $privilegeName );
-		return $this->db->get();
-	}
-	public final function updateByPrivilegeId
-	(
-		$id, 
 		$privilegeId, 
-		$selected //TODO: Create selected field in table.
+		$selected
 	)
 	{
+		$selected = $selected == 'true';
+		$bHasPriv = $this->hasPrivilege($userId, $privilegeId);
+		$b = 0;
+		if($selected)
+		{
+			if(!$bHasPriv)
+			{
+				//Insert along with all permissions.
+				$this->db->select('id');
+				$this->db->from('permissions');
+				$perms = $this->db->get()->result();
+				foreach($perms as $p)
+				{
+					$a = array
+					(
+						'user_id' => $userId,
+						'privilege_id' => $privilegeId,
+						'permission_id' => $p->id,
+						'selected' => 1
+					);
+					$this->db->insert('privilege_permissions', $a);
+				}
+				return $this->db->affected_rows() > 0;
+			}
+		}
+		else
+		{
+			if($bHasPriv)
+			{
+				//Remove including related permissions.
+				$this->db->where('user_id', $userId);
+				$this->db->where('privilege_id', $privilegeId);
+				$this->db->delete('privilege_permissions');
+				return $this->db->affected_rows() > 0;
+			}
+		}
+		return true;
+	}
+	public final function updateUserPermissions
+	(
+		$userId,
+		$privilegeId, 
+		$permissionId,
+		$selected
+	)
+	{
+		$selected = $selected == 'true';
+		//
 		$this->db->where('id', $id);
 		$this->db->where('privilege_id', $privilegeId);
 		$a = array('selected' => $selected);

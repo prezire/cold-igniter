@@ -21,6 +21,9 @@ Inspired by my lazy self. Includes simple features to make you more productive t
 - PayPal
 	- Basic payments using DirectPayment and ExpressCheckout
 	- Recurring payment to be included
+    - http://tareqalam.com/2010/07/07/paypal-recurring-payment-integrated-with-codeigniter/
+    - http://ci-merchant.org/
+    - http://stackoverflow.com/questions/21846374/recurring-payment-in-paypal-with-codeigniter-website
 - Advanced Auth to be included
 	- Roles, privilages and permissions
 - More CRUD commands and properties to be included

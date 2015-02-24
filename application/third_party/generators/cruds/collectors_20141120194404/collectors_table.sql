@@ -1,4 +1,0 @@
-CREATE TABLE collectors(id INT NOT NULL AUTO_INCREMENT,
-user_id INT NOT NULL,
-public_name VARCHAR(255) NOT NULL,
-PRIMARY KEY (id))

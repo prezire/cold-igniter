@@ -1,0 +1,5 @@
+CREATE TABLE students(id INT NOT NULL AUTO_INCREMENT,
+full_name VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+date_of_birth  NOT NULL,
+PRIMARY KEY (id))

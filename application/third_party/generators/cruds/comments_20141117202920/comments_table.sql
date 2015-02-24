@@ -1,7 +1,0 @@
-CREATE TABLE comments(id INT NOT NULL AUTO_INCREMENT,
-from_user_id INT NOT NULL,
-to_user_id INT NOT NULL,
-comment TEXT NOT NULL,
-date_time VARCHAR(255) NOT NULL,
-approved TINYINT(1) NOT NULL,
-PRIMARY KEY (id))

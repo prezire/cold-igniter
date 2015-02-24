@@ -1,1 +1,0 @@
-CREATE TABLE sub_page(PRIMARY KEY (id))

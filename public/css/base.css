@@ -4,6 +4,21 @@
 @media only screen 
 { 
 	.alert-box p{margin: 0;}
+
+	/*Auth.*/
+	#permission.userPermission .panel.radius
+	{
+		padding: 0;
+	}
+	#permission.userPermission .users.panel.radius
+	{
+		padding: 17px;
+	}
+	#permission.userPermission input[type='checkbox']
+	{
+		margin: 0 8px;
+	}
+	/*/Auth.*/
 } 
 
  /* min-width 641px, medium screens */
