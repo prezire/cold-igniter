@@ -16,7 +16,7 @@ class User extends CI_Controller
   {
     if($this->input->post())
     {
-      if($this->form_validation->run())
+      if($this->form_validation->run('user'))
       {
         $o = $this->usermodel->create()->row();
         if($o->id)
@@ -53,7 +53,7 @@ class User extends CI_Controller
     );
     if($this->input->post())
     {
-      if($this->form_validation->run('user/update'))
+      if($this->form_validation->run('user'))
       {
         $this->usermodel->update();
         redirect(site_url('user/update/' . $this->input->post('id')));

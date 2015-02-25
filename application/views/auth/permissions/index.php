@@ -46,9 +46,10 @@
 					  	  	  				break;
 					  	  	  			}
 					  	  	  		}
+					  	  	  		//
 					  	  	  		echo '<input type="checkbox" 
 					  	  	  				value="' . $permName . 
-					  	  	  				'" id="' . $pm['id'] . 
+					  	  	  				'" id="' . $perms['id'] . 
 					  	  	  				'" ' . $sChecked . 
 					  	  	  				' />' . $permName;
 				  	  	  		} 

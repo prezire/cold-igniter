@@ -138,32 +138,38 @@ class PermissionModel extends CI_Model {
 	)
 	{
 		$selected = $selected == 'true';
-		$bHasPriv = $this->hasPrivilege($userId, $privilegeId);
 		$b = 0;
 		if($selected)
 		{
-			if(!$bHasPriv)
+			$this->db->select('permission_id');
+			$this->db->from('privilege_permissions');
+			$this->db->where('privilege_id', $privilegeId);
+			$existingPerms = $this->db->get()->result_array();
+			//
+			//Insert along with all permissions.
+			$this->db->select('id');
+			$this->db->from('permissions');
+			$perms = $this->db->get()->result_array();
+			foreach($perms as $p)
 			{
-				//Insert along with all permissions.
-				$this->db->select('id');
-				$this->db->from('permissions');
-				$perms = $this->db->get()->result();
-				foreach($perms as $p)
+				if(!in_array($p['id'], $existingPerms))
 				{
-					$a = array
-					(
-						'user_id' => $userId,
-						'privilege_id' => $privilegeId,
-						'permission_id' => $p->id,
-						'selected' => 1
-					);
-					$this->db->insert('privilege_permissions', $a);
+					{
+						$a = array
+						(
+							'user_id' => $userId,
+							'privilege_id' => $privilegeId,
+							'permission_id' => $p['id']
+						);
+						$this->db->insert('privilege_permissions', $a);
+					}
 				}
-				return $this->db->affected_rows() > 0;
 			}
+			return $this->db->affected_rows() > 0;
 		}
 		else
 		{
+			$bHasPriv = $this->hasPrivilege($userId, $privilegeId);
 			if($bHasPriv)
 			{
 				//Remove including related permissions.
@@ -175,7 +181,7 @@ class PermissionModel extends CI_Model {
 		}
 		return true;
 	}
-	public final function updateUserPermissions
+	public final function updateUserPermission
 	(
 		$userId,
 		$privilegeId, 
@@ -184,11 +190,44 @@ class PermissionModel extends CI_Model {
 	)
 	{
 		$selected = $selected == 'true';
-		//
-		$this->db->where('id', $id);
-		$this->db->where('privilege_id', $privilegeId);
-		$a = array('selected' => $selected);
-		$this->db->update('permissions', $a);
-		return $this->db->get();	
+		$a = array
+		(
+			'user_id' => $userId,
+			'privilege_id' => $privilegeId,
+			'permission_id' => $permissionId
+		);
+		$exists = $this->db->get_where
+		(
+			'privilege_permissions', 
+			$a
+		)->num_rows() > 0;
+		if($selected)
+		{
+
+			if($exists)
+			{
+				//Do nothing.
+			}
+			else
+			{
+				//Create.
+				$this->db->insert('privilege_permissions', $a);
+			}
+			return $this->db->affected_rows() > 0;
+		}
+		else
+		{
+			if($exists)
+			{
+				//Remove.
+				$this->db->delete('privilege_permissions', $a);
+			}
+			else
+			{
+				//Do nothing.
+			}
+			return $this->db->affected_rows() > 0;
+		}
+		return true;
 	}
 }

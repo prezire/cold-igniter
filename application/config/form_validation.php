@@ -17,7 +17,7 @@
         'rules' => 'required|trim|xss_clean|min_length[1]'
       )
     ),
-    'user/update' => array
+    'user' => array
     (
       array
       (

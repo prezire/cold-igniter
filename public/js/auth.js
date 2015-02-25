@@ -24,11 +24,7 @@ function Auth()
 						uId + '/' + 
 						privId + '/' + 
 						bChecked;
-				//
-				bChecked?
-					perms.attr('checked', 'checked'):
-					perms.removeAttr('checked');
-				//
+				perms.prop('checked', bChecked);
 				$.ajax
 				(
 					{
@@ -60,7 +56,7 @@ function Auth()
 				var privId = p.attr('privilegeId');
 				var bChecked = t.is(':checked');
 				var url = o.siteUrl + 
-						'/permission/updateUserPermissions/' +
+						'/permission/updateUserPermission/' +
 						uId + '/' + 
 						privId + '/' + 
 						permId + '/' + 

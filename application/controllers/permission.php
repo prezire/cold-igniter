@@ -56,7 +56,7 @@ class Permission extends CI_Controller
     );
     showJsonView(array('success' => $b));
   }
-  public final function updateUserPermissions
+  public final function updateUserPermission
   (
     $userId,
     $privilegeId, 
@@ -64,14 +64,14 @@ class Permission extends CI_Controller
     $selected
   )
   {
-    $this->permissionmodel->updateUserPermissions
+    $b = $this->permissionmodel->updateUserPermission
     (
       $userId,
       $privilegeId, 
       $permissionId,
       $selected
     );
-    showJsonView(array('success' => true));
+    showJsonView(array('success' => $b));
   }
   public final function update( $id = null ) {
     $o = $this->permissionmodel->read( $id )->row();

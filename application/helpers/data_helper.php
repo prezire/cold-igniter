@@ -40,12 +40,16 @@
   {
     $CI = get_instance();
     $CI->load->model('permissionmodel');
-    return $CI->permissionmodel->readHasPrivilege($privilegeName);
+    $b = $CI->permissionmodel->readHasPrivilege($privilegeName);
+    if($b) return true;
+    else redirect(site_url('auth/login'));
   }
   /*
     Usage:
-    hasPermissions('Page');
-    hasPermissions('Page', array('Create', 'Update'));
+    //All permissions.
+    if(hasPermissions('Page')){...}
+    //Specific permissions.
+    if(hasPermissions('Page', array('Create', 'Update'))){...}
   */
   function hasPermissions
   (
@@ -55,7 +59,9 @@
   {
     $CI = get_instance();
     $CI->load->model('permissionmodel');
-    return $CI->permissionmodel->readHasPermissions($privilegeName, $permissions);
+    $b = $CI->permissionmodel->readHasPermissions($privilegeName, $permissions);
+    if($b) return true;
+    else redirect(site_url('auth/login'));
   }
   function sendEmailer
   (
