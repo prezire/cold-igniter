@@ -44,6 +44,8 @@
     <div class="small-12 medium-12 large-6 columns">Zip Code: <input type="text" name="zip_code" value="<?php echo set_value('zip_code', $user->zip_code); ?>" /></div>
     <div class="small-12 medium-12 large-6 columns">Landline: <input type="text" name="landline" value="<?php echo set_value('landline', $user->landline); ?>" /></div>
     <div class="small-12 medium-12 large-6 columns">Mobile: <input type="text" name="mobile" value="<?php echo set_value('mobile', $user->mobile); ?>" /></div>
+  </div>
+  <div class="row">
     <div class="small-12 medium-12 large-12 columns">
       <a href="<?php echo site_url('user'); ?>" class="button tiny alert">Cancel</a>
       <button class="button tiny">Update</button>

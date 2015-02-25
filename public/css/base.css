@@ -3,29 +3,49 @@
 /* Define mobile styles */
 @media only screen 
 { 
+	/*Commons.*/
+	body{font-size: 13px;}
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
+	input[type="checkbox"],
+	input[type="radio"],
+	textarea,
+	button,
+	.button,
+	table thead tr th,
+	table tbody tr td,
+	select{font-size: 12px;}
+	.breadcrumb, 
+	button.tiny, 
+	.button.tiny{padding: 8px;}
 	.alert-box p{margin: 0;}
+	.breadcrumb{margin: 8px 0;}
+	table{width: 100%;}
+	a.logo{display: block; padding-top: 2px;}
+	.top-bar-section li:not(.has-form) a:not(.button):hover{background: #008CBA;}
+	#container > .row{padding-left: 8px; padding-right: 8px;}
+	/*/Commons.*/
 
 	/*Auth.*/
-	#permission.userPermission .panel.radius
-	{
-		padding: 0;
-	}
-	#permission.userPermission .users.panel.radius
-	{
-		padding: 17px;
-	}
-	#permission.userPermission input[type='checkbox']
-	{
-		margin: 0 8px;
-	}
+	#auth.login .btnFb{margin: 4px 0; display: block;}
+	#permission.userPermission .panel.radius{padding: 0;}
+	#permission.userPermission .users.panel.radius{padding: 17px;}
+	#permission.userPermission input[type='checkbox']{margin: 0 8px;}
 	/*/Auth.*/
 } 
 
  /* min-width 641px, medium screens */
-@media only screen and (min-width: 40.063em) { }
+@media only screen and (min-width: 40.063em){ }
 
 /* min-width 1025px, large screens */
-@media only screen and (min-width: 64.063em) { } 
+@media only screen and (min-width: 64.063em)
+{
+	/*Commons.*/
+	#container > .row{padding-left: 0; padding-right: 0;}
+	.breadcrumb{padding: 0;}
+	/*/Commons.*/
+} 
 
 /* min-width 1441px, xlarge screens */
 @media only screen and (min-width: 90.063em) { } 

@@ -7,31 +7,35 @@ class Permission extends CI_Controller
     $this->load->model( 'permissionmodel' );
   }
 
-  public final function index(){}
-  public final function userPermission() 
+  public final function index()
+  {
+    $p = $this->permissionmodel->index()->result();
+    showView('auth/permissions/index', array('permissions' => $p));
+  }
+  public final function userPermissions() 
   {
     $this->load->model('usermodel');
     $a = $this->permissionmodel->readUserPermissions();
     $a['permissions'] = $this->permissionmodel->index()->result_array();
-    showView( 'auth/permissions/index', $a );
+    showView( 'auth/permissions/user_permissions', $a );
   }
   public final function create() {
     if ( $this->input->post() ) {
-      if ( $this->form_validation->run() ) {
+      if ( $this->form_validation->run('permission') ) {
         $o = $this->permissionmodel->create()->row();
         if ( $o->id ) {
-          redirect( site_url( 'permission/read/' . $o->id ) );
+          redirect( site_url( 'permission/update/' . $o->id ) );
         }
         else {
           show_error( 'Error creating permission.' );
         }
       }
       else {
-        showView( 'permissions/create' );
+        showView( 'auth/permissions/create' );
       }
     }
     else {
-      showView( 'permissions/create' );
+      showView( 'auth/permissions/create' );
     }
   }
   public final function read( $id ) {
@@ -73,28 +77,36 @@ class Permission extends CI_Controller
     );
     showJsonView(array('success' => $b));
   }
-  public final function update( $id = null ) {
-    $o = $this->permissionmodel->read( $id )->row();
-    $a = array( 'permission' => $o );
-    if ( $this->input->post() ) {
-      if ( $this->form_validation->run() ) {
-        $b = $this->permissionmodel->update()->row();
+  public final function update( $id = null ) 
+  {
+    $i = $this->input;
+    if ( $i->post() ) 
+    {
+      if ( $this->form_validation->run('permission') ) 
+      {
+        $o = $this->permissionmodel->read( $i->post('id') )->row();
+        $a = array( 'permission' => $o );
+        $b = $this->permissionmodel->update();
         if ( $b ) {
-          redirect( site_url( 'permission/read/' . $o->id ) );
+          redirect( site_url( 'permission/update/' . $o->id ) );
         }
         else {
           show_error( 'Error updating permission.' );
         }
       }
       else {
-        showView( 'permissions/update', $a );
+        showView( 'auth/permissions/update', $a );
       }
     }
-    else {
-      showView( 'permissions/update', $a );
+    else 
+    {
+      $o = $this->permissionmodel->read( $id )->row();
+      $a = array( 'permission' => $o );
+      showView( 'auth/permissions/update', $a );
     }
   }
   public final function delete( $id ) {
-    showJsonView( array( 'permission' => $this->permission_model->delete( $id )->row() ) );
+    $this->permissionmodel->delete( $id );
+    redirect(site_url('permission'));
   }
 }

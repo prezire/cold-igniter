@@ -1,8 +1,10 @@
+				</div>
+			</div><!-- /.row -->
 		</div><!-- /#container -->
 		<div class="row">
 		  <div class="small-12 medium-12 large-12 columns">
 		  	<footer>
-				Copyright &copy; 2015 ColdIgniter by 
+				Copyright &copy; 2015 Cold Igniter by 
 				<a href="http://www.simplifie.net" target="_blank">Simplifie</a>. All Rights Reserved.
 			</footer>
 		  </div>

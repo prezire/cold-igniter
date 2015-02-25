@@ -27,41 +27,29 @@
     $a = array_slice($a, $fromIndex, $toIndex);
     return $a;
   }
-  function getLoggedUser()
+  function upload($fieldName)
   {
-    $CI = get_instance();
-    return $CI->session->userdata('user');
-  }
-  function isLoggedIn()
-  {
-    return getLoggedUser() != null;
-  }
-  function hasPrivilege($privilegeName)
-  {
-    $CI = get_instance();
-    $CI->load->model('permissionmodel');
-    $b = $CI->permissionmodel->readHasPrivilege($privilegeName);
-    if($b) return true;
-    else redirect(site_url('auth/login'));
-  }
-  /*
-    Usage:
-    //All permissions.
-    if(hasPermissions('Page')){...}
-    //Specific permissions.
-    if(hasPermissions('Page', array('Create', 'Update'))){...}
-  */
-  function hasPermissions
-  (
-    $privilegeName, 
-    $permissions = array('Create', 'Read', 'Update', 'Delete')
-  )
-  {
-    $CI = get_instance();
-    $CI->load->model('permissionmodel');
-    $b = $CI->permissionmodel->readHasPermissions($privilegeName, $permissions);
-    if($b) return true;
-    else redirect(site_url('auth/login'));
+    if($_FILES[$fieldName]['error'] < 1)
+    {
+      $config['upload_path'] = './public/uploads/';
+      $config['allowed_types'] = 'gif|jpg|png|pdf|doc';
+      $config['encrypt_name'] = true;
+      //
+      $CI = get_instance();
+      $CI->load->library('upload', $config);
+      if($CI->upload->do_upload($fieldName))
+      {
+        return $CI->upload->data();
+      }
+      else
+      {
+        return $CI->upload->display_errors();
+      }
+    }
+    else
+    {
+      return null;
+    }
   }
   function sendEmailer
   (
@@ -74,10 +62,20 @@
   )
   {
     $CI = get_instance();
+    $CI->email->set_newline("\r\n");
     $CI->email->from($from);
     $CI->email->to($to);
     $CI->email->bcc($cc);
     $CI->email->subject($subject);
     $CI->email->message($message);
     $CI->email->send();
+    if(!$CI->email->send())
+    {
+      show_error($CI->email->print_debugger());
+      exit;
+    }
+  }
+  function generateToken($key)
+  {
+    return sha1($key . date('Ymd') . rand(0, 999) . time());
   }

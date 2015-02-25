@@ -25,5 +25,14 @@
         'label' => 'Email',
         'rules' => 'required|valid_email|trim|xss_clean'
       )
+    ),
+    'permission' => array
+    (
+      array
+      (
+        'field' => 'name',
+        'label' => 'Name',
+        'rules' => 'required|trim|xss_clean'
+      )
     )
   );

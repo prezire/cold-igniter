@@ -4,6 +4,7 @@ class User extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+    validateLoginSession(array('create'), 'exclude');
     $this->load->model('usermodel');
     $this->load->helper('country_helper');
 	}

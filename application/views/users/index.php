@@ -38,7 +38,6 @@
 				<td><?php echo $u->enabled; ?></td>
 				<td><?php echo $u->role_id; ?></td>
 				<td>
-					<a href="<?php echo site_url('user/read/' . $u->id); ?>" class="button tiny">View</a>
 					<a href="<?php echo site_url('user/update/' . $u->id); ?>" class="button tiny">Update</a>
 					<a href="<?php echo site_url('user/delete/' . $u->id); ?>" class="button tiny alert">Delete</a>
 				</td>
