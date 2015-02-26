@@ -16,28 +16,21 @@
     <ul class="right">
       <li><a href="<?php echo site_url('home'); ?>">Home</a></li>
       <?php if(isLoggedIn()){ ?>
-        <li class="has-dropdown">
-          <a href="#">Session</a>
-          <ul class="dropdown">
-            <li>
-              <a href="<?php echo site_url('user/update/' . $u->id); ?>">
-                Profile
-              </a>
-            </li>
-            <li>
-              <a href="<?php echo site_url('auth/logout'); ?>">
-                Log Out (<?php echo $u->full_name; ?>)
-              </a>
-            </li>
-          </ul>
-        </li>
+        <li><a href="<?php echo site_url('home/gallery'); ?>">Gallery</a></li>
+        <li><a href="<?php echo site_url('home/search'); ?>">Search</a></li>
+        
 
         <li class="has-dropdown">
-          <a href="#">Authentication</a>
+          <a href="#">Auth</a>
           <ul class="dropdown">
             <li>
               <a href="<?php echo site_url('user'); ?>">
                 Users
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo site_url('role'); ?>">
+                Roles
               </a>
             </li>
             <li>
@@ -55,8 +48,22 @@
                 User Permissions
               </a>
             </li>
+
+            <li>
+              <a href="<?php echo site_url('user/update/' . $u->id); ?>">
+                Profile
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo site_url('auth/logout'); ?>">
+                Log Out (<?php echo $u->full_name; ?>)
+              </a>
+            </li>
+
           </ul>
         </li>
+
+        <li><a href="<?php echo site_url('analytics'); ?>">Analytics</a></li>
 
       <?php } else{ ?>
         <li>

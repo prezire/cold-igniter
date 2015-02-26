@@ -13,10 +13,10 @@
       </div>
       <div class="row">
         <div class="small-12 medium-12 large-12 columns">
-          <a href="<?php echo site_url('role/read/' . $role->id); ?>" class="button radius small alert">
+          <a href="<?php echo site_url('role'); ?>" class="button tiny alert">
             Cancel
           </a>
-          <button class="button radius small">
+          <button class="button tiny">
             Update
           </button>
         </div>

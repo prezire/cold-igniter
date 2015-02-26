@@ -4,7 +4,7 @@
 		class="button tiny">
 		New User
 	</a>
-	<table>
+	<table class="list">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -18,7 +18,7 @@
 				<th>Mobile</th>
 				<th>Enabled</th>
 				<th>Role</th>
-				<th>Options</th>
+				<th class="options">Options</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,7 +35,7 @@
 				<td><?php echo $u->mobile; ?></td>
 				<td><?php echo form_checkbox('enabled', null, $u->enabled, 'disabled'); ?></td>
 				<td><?php echo $u->role_name; ?></td>
-				<td>
+				<td class="options">
 					<a href="<?php echo site_url('user/update/' . $u->id); ?>" class="button tiny">Update</a>
 					<a href="<?php echo site_url('user/delete/' . $u->id); ?>" class="button tiny alert">Delete</a>
 				</td>

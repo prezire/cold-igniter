@@ -9,13 +9,13 @@ class Role extends CI_Controller
   public final function index()
   {
     $o = $this->rolemodel->index()->result();
-    showView('roles/index', array('roles' => $o));
+    showView('auth/roles/index', array('roles' => $o));
   }
   public final function create()
   {
     if($this->input->post())
     {
-      if($this->form_validation->run())
+      if($this->form_validation->run('role'))
       {
         $o = $this->rolemodel->create()->row();
         if($o->id)
@@ -29,12 +29,12 @@ class Role extends CI_Controller
       }
       else
       {
-        showView('roles/create');
+        showView('auth/roles/create');
       }
     }
     else
     {
-      showView('roles/create');
+      showView('auth/roles/create');
     }
   }
 	public final function read($id)
@@ -48,30 +48,24 @@ class Role extends CI_Controller
     $a = array('role' => $o);
     if($this->input->post())
     {
-      if($this->form_validation->run())
+      if($this->form_validation->run('role'))
       {
-        $b = $this->rolemodel->update()->row();
-        if($b)
-        {
-          redirect(site_url('role/read/' . $o->id));
-        }
-        else
-        {
-          show_error('Error updating role.');
-        }
+        $this->rolemodel->update();
+        redirect(site_url('role/update/' . $this->input->post('id')));
       }
       else
       {
-        showView('roles/update', $a);
+        showView('auth/roles/update', $a);
       }
     }
     else
     {
-      showView('roles/update', $a);
+      showView('auth/roles/update', $a);
     }
   }
 	public final function delete($id)
   {
-    showJsonView(array('role' => $this->role_model->delete($id)->row()));
+    $this->rolemodel->delete($id);
+    redirect(site_url('role'));
   }
 }

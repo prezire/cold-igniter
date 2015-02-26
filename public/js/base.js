@@ -1,5 +1,6 @@
 function ColdIgniter()
 {
+	this.siteUrl;
 	this.init = function()
 	{
 		this.setListeners();

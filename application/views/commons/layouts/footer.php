@@ -12,7 +12,13 @@
     <script src="<?php echo base_url('public/libs/foundation-5.4.7/js/foundation.min.js'); ?>"></script>
     <script>
       $(document).foundation();
-      $(document).ready(function(){new ColdIgniter().init();});
+      $(document).ready(function(){
+      	var c = new ColdIgniter();
+      	c.siteUrl = '<?php echo site_url(); ?>';
+      	c.init();
+      	$('img').imgLiquid();
+      	$('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+      });
     </script>
 	</body>
 </html>

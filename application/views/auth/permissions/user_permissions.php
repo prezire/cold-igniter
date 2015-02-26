@@ -23,7 +23,7 @@
 			  	  	?>
 				  	  	<div userId="<?php echo $u['id']; ?>" 
 				  	  		privilegeId="<?php echo $pId; ?>" 
-				  	  		class="panel radius row">
+				  	  		class="panel row">
 				  	  	  <div class="privilege small-6 medium-6 large-6 columns">
 				  	  	  	<?php 
 				  	  	  		$sChecked = $pv['checked'] ? 'checked' : '';
@@ -47,11 +47,12 @@
 					  	  	  			}
 					  	  	  		}
 					  	  	  		//
-					  	  	  		echo '<input type="checkbox" 
+					  	  	  		echo '<div><input type="checkbox" 
 					  	  	  				value="' . $permName . 
 					  	  	  				'" id="' . $perms['id'] . 
 					  	  	  				'" ' . $sChecked . 
-					  	  	  				' />' . $permName;
+					  	  	  				' />' . $permName . 
+					  	  	  				'</div>';
 				  	  	  		} 
 				  	  	  	?>
 				  	  	  </div>

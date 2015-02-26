@@ -22,6 +22,7 @@ class User extends CI_Controller
   }
   public final function create()
   {
+    $a = array('titles' => $this->aTitles);
     if($this->input->post())
     {
       if($this->form_validation->run('user'))
@@ -38,12 +39,12 @@ class User extends CI_Controller
       }
       else
       {
-        showView('users/create', array('titles' => $this->aTitles));
+        showView('users/create', $a);
       }
     }
     else
     {
-      showView('users/create');
+      showView('users/create', $a);
     }
   }
 	public final function read($id)
