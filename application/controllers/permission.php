@@ -4,6 +4,7 @@ class Permission extends CI_Controller
 {
   public function __construct() {
     parent::__construct();
+    validateLoginSession();
     $this->load->model( 'permissionmodel' );
   }
 

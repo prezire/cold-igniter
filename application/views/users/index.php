@@ -1,5 +1,5 @@
 <div id="user" class="index row">
-	<h4>User</h4>
+	<h4>Users</h4>
 	<a href="<?php echo site_url('user/create'); ?>"
 		class="button tiny">
 		New User
@@ -7,18 +7,17 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Id</th>
+				<th>ID</th>
 				<th>Full Name</th>
 				<th>Title</th>
 				<th>Email</th>
-				<th>Password</th>
 				<th>Date Of Birth</th>
 				<th>Address</th>
 				<th>Country</th>
 				<th>Landline</th>
 				<th>Mobile</th>
 				<th>Enabled</th>
-				<th>Role Id</th>
+				<th>Role</th>
 				<th>Options</th>
 			</tr>
 		</thead>
@@ -29,14 +28,13 @@
 				<td><?php echo $u->full_name; ?></td>
 				<td><?php echo $u->title; ?></td>
 				<td><?php echo $u->email; ?></td>
-				<td><?php echo $u->password; ?></td>
 				<td><?php echo $u->date_of_birth; ?></td>
 				<td><?php echo $u->address; ?></td>
 				<td><?php echo $u->country; ?></td>
 				<td><?php echo $u->landline; ?></td>
 				<td><?php echo $u->mobile; ?></td>
-				<td><?php echo $u->enabled; ?></td>
-				<td><?php echo $u->role_id; ?></td>
+				<td><?php echo form_checkbox('enabled', null, $u->enabled, 'disabled'); ?></td>
+				<td><?php echo $u->role_name; ?></td>
 				<td>
 					<a href="<?php echo site_url('user/update/' . $u->id); ?>" class="button tiny">Update</a>
 					<a href="<?php echo site_url('user/delete/' . $u->id); ?>" class="button tiny alert">Delete</a>

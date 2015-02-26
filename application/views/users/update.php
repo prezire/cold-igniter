@@ -21,7 +21,7 @@
         echo form_checkbox($data);
       ?>
     </div>
-    <div class="small-12 medium-12 large-6 columns">Title: <input type="text" name="title" value="<?php echo set_value('title', $user->title); ?>" /></div>
+    <div class="small-12 medium-12 large-6 columns">Title: <?php echo form_dropdown('title', $titles, set_value('title', $user->title)); ?></div>
     <div class="small-12 medium-12 large-6 columns">Full Name: <input type="text" name="full_name" value="<?php echo set_value('full_name', $user->full_name); ?>" /></div>
     <div class="small-12 medium-12 large-6 columns">Email: <input type="text" name="email" value="<?php echo set_value('email', $user->email); ?>" /></div>
     <div class="small-12 medium-12 large-6 columns">Password: <input type="password" name="password" value="<?php echo set_value('password', $user->password); ?>" /></div>

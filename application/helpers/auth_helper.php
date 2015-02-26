@@ -26,7 +26,11 @@
 	      for session and redirects the user if he's not logged in.
 	      If the executing method is read, this method does nothing.
 	*/
-	function validateLoginSession( $methodNames, $type = 'include' ) {
+	function validateLoginSession
+	( 
+		$methodNames = array('Create', 'Read', 'Update', 'Delete'), 
+		$type = 'include' 
+	) {
 		$CI = get_instance();
 		$m = $CI->router->fetch_method();
 		$b = in_array( $m, $methodNames );

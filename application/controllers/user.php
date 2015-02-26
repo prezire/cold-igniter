@@ -1,10 +1,17 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 class User extends CI_Controller 
 {
+  private $aTitles;
 	public function __construct()
 	{
 		parent::__construct();
     validateLoginSession(array('create'), 'exclude');
+    $this->aTitles = array
+    (
+      'Mr.' => 'Mr.', 
+      'Ms.' => 'Ms.', 
+      'Mrs.' => 'Mrs.'
+    );
     $this->load->model('usermodel');
     $this->load->helper('country_helper');
 	}
@@ -31,7 +38,7 @@ class User extends CI_Controller
       }
       else
       {
-        showView('users/create');
+        showView('users/create', array('titles' => $this->aTitles));
       }
     }
     else
@@ -50,7 +57,8 @@ class User extends CI_Controller
     $a = array
     (
       'user' => $o,
-      'roles' => $this->rolemodel->index()->result_array()
+      'roles' => $this->rolemodel->index()->result_array(),
+      'titles' => $this->aTitles
     );
     if($this->input->post())
     {

@@ -12,8 +12,8 @@
       </div>
       <div class="row">
         <div class="small-12 medium-12 large-12 columns">
-          <a href="<?php echo site_url('privilege'); ?>" class="button radius small alert">Cancel</a>
-          <button class="button radius small">Create</button>
+          <a href="<?php echo site_url('privilege'); ?>" class="button tiny alert">Cancel</a>
+          <button class="button tiny">Create</button>
         </div>
       </div>
   </form>

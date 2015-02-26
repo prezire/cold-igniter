@@ -7,7 +7,7 @@
   
   Full Name: <input type="text" name="full_name" />
   
-  Title: <input type="text" name="title" />
+  Title: <?php echo form_dropdown('title', $titles); ?>
   
   Email: <input type="text" name="email" />
   

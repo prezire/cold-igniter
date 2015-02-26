@@ -6,7 +6,6 @@
 	<table>
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Name</th>
 				<th>Options</th>
 			</tr>
@@ -14,7 +13,6 @@
 		<tbody>
 			<?php foreach($permissions as $p){ ?>
 				<tr>
-					<td><?php echo $p->id; ?></td>
 					<td><?php echo $p->name; ?></td>
 					<td>
 						<a href="<?php echo site_url('permission/update/' . $p->id); ?>" class="button tiny">Update</a>

@@ -6,8 +6,9 @@
 		}
 		public final function index()
 		{
-			$this->db->select('u.*');
+			$this->db->select('u.*, r.name role_name');
 			$this->db->from('users u');
+			$this->db->join('roles r', 'r.id = u.role_id');
 			return $this->db->get();
 		}
 		public final function create()

@@ -13,8 +13,8 @@
       </div>
       <div class="row">
         <div class="small-12 medium-12 large-12 columns">
-          <a href="<?php echo site_url('privilege/read/' . $privilege->id); ?>" class="button radius small alert">Cancel</a>
-          <button class="button radius small">Update</button>
+          <a href="<?php echo site_url('privilege'); ?>" class="button tiny alert">Cancel</a>
+          <button class="button tiny">Update</button>
         </div>
       </div>
   </form>
