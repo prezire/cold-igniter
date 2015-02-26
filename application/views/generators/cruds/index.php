@@ -23,9 +23,8 @@
 					{
 				?><td><?php echo '<?php echo $' . $first . '->' . $f['name'] . '; ?>'; ?></td>
 				<?php } ?><td>
-					<a href="<?php echo "<?php echo site_url('$ctrl" . "/read/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button radius small">View</a>
-					<a href="<?php echo "<?php echo site_url('$ctrl" . "/update/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button radius small">Update</a>
-					<a href="<?php echo "<?php echo site_url('$ctrl" . "/delete/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button radius small alert">Delete</a>
+					<a href="<?php echo "<?php echo site_url('$ctrl" . "/update/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button tiny">Update</a>
+					<a href="<?php echo "<?php echo site_url('$ctrl" . "/delete/' . $" . "$first" . "->" . 'id); ?>'; ?>" class="button tiny alert delete">Delete</a>
 				</td>
 			</tr>
       <?php echo '<?php } ?>'; ?>

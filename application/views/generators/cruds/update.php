@@ -5,15 +5,23 @@
     $cml = camelize($entity);
   ?>
   <?php echo '<?php'; ?> 
-    echo validation_errors();
-    echo form_open('<?php echo $ctrl; ?>/update'); 
+      echo validation_errors();
+      echo form_open('<?php echo $ctrl; ?>/update'); 
     <?php echo '?>'; ?>
-    <?php foreach($fields as $f){ ?>
+    
+    <div class="row">  
+  <?php foreach($fields as $f){ ?>
+    <div class="small-12 medium-12 large-12 columns">
+          <?php echo humanize($f['name']); ?>: <?php echo $f['field']; ?>
       
-      <?php echo humanize($f['name']); ?>: <?php echo $f['field']; ?>
-      
-    <?php } ?>
-    <a href="<?php echo '<?php echo site_url('; ?>'<?php echo $ctrl; ?>/read/' <?php echo ' . $' . $cml . '->id'; ?>); <?php echo '?>'; ?>" class="button radius small alert">Cancel</a>
-    <button class="button radius small">Update</button>
+      </div>
+  <?php } ?>
+  </div>
+    <div class="row">
+      <div class="small-12 medium-12 large-12 columns">
+        <a href="<?php echo '<?php echo site_url('; ?>'<?php echo $ctrl; ?>/update/' <?php echo ' . $' . $cml . '->id'; ?>); <?php echo '?>'; ?>" class="button tiny alert">Cancel</a>
+        <button class="button tiny">Update</button>
+      </div>
+    </div>
   </form>
 </div>

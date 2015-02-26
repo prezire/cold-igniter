@@ -19,22 +19,8 @@
         @param  $fields   String. Colon-delimited. field_name:data_type
 
         CLI usage:
-      - php index.php generate crud sub_page id:int title:varchar description:text enabled:boolean
-        Creates the following folders, files and methods in application/third_party/generators:
-        Model:
-          - SubPageModel (camelize() with appended Model)
-            - index, create, read, update, delete
-        Controller:
-          - SubPage (camelize())
-            - index, create, read, update, delete
-        View:
-          - sub_pages (plural())
-            - index, create, read, update, delete
-        Validation:
-          - subpage/create
-          - subpage/read
-          - subpage/update
-      */
+        php index.php generate crud student id:int full_name:varchar description:text enabled:boolean birth_date:datetime avatar:file gender:enum:Male-Female
+    */
     public final function crud() {
       if ( $this->input->is_cli_request() ) {
         $params = $_SERVER['argv'];
@@ -70,7 +56,8 @@
         'file' => 'VARCHAR(255)',
         'datetime' => 'DATETIME',
         'text' => 'TEXT',
-        'boolean' => 'TINYINT(1)'
+        'boolean' => 'TINYINT(1)',
+        'enum' => 'ENUM'
       );
       $entity = plural( $entity );
       $contents = "CREATE TABLE $entity(";
@@ -78,11 +65,20 @@
         $l = explode( ':', $f );
         $key = $l[0];
         $val = $l[1];
-        //
-        $contents .= $key . ' ' . $aDefVals[$val] . ' NOT NULL';
+        if($val == 'enum')
+        {
+          $enumParams = str_replace('-', "','", $l[2]);
+          $contents .= $key . ' ' . $aDefVals[$val] . '(\'' . $enumParams . '\')';
+        }
+        else
+        {
+          $contents .= $key . ' ' . $aDefVals[$val];
+        }
+        $contents .= ' NOT NULL';
         if ( $key == 'id' ) {
           $contents .= ' AUTO_INCREMENT';
         }
+
         $contents .= ",\n";
       }
       $contents .=  'PRIMARY KEY (id))';
@@ -92,7 +88,12 @@
     }
     private final function createCrudCtrl( $entity ) {
       $filename = $this->sCrudViewFldr . '/' . str_replace( '_', '', $entity );
-      $contents = $this->parser->parse( 'generators/cruds/controller', array( 'entity' => $entity ), true );
+      $contents = $this->parser->parse
+      ( 
+        'generators/cruds/controller', 
+        array( 'entity' => $entity ), 
+        true 
+      );
       write_file( $filename . '.php', $contents );
       $this->echoFileCreated( 'Controller', $filename );
     }
@@ -110,7 +111,12 @@
         }
       }
       //
-      $contents = $this->parser->parse( 'generators/cruds/model', array( 'entity' => $entity, 'files' => $aFiles ), true );
+      $contents = $this->parser->parse
+      ( 
+        'generators/cruds/model', 
+        array( 'entity' => $entity, 'files' => $aFiles ), 
+        true 
+      );
       write_file( $filename . '.php', $contents );
       $this->echoFileCreated( 'Model', $filename );
     }
@@ -124,6 +130,7 @@
         switch ( $keyVal[1] ) {
           case 'int':
           case 'varchar':
+          case 'datetime':
             $tmp = array( 'name' => $key, 'field' => $this->toFormField( 'text', $entity, $key ) );
             break;
           case 'text':
@@ -135,6 +142,9 @@
           case 'file':
             $tmp = array( 'name' => $key, 'field' => $this->toFormField( 'file', $entity, $key ) );
             break;
+          case 'enum':
+            $tmp = array( 'name' => $key, 'field' => $this->toFormField( 'enum', $entity, $key ) );
+            break;
         }
         array_push( $a, $tmp );
       }
@@ -142,7 +152,7 @@
       $this->createView( $entity, $a, 'create' );
       $this->createView( $entity, $a, 'read' );
       //
-      //Re-create the fields again this time with set_values().
+      //Re-create the fields again this time with set_values() during form validation.
       $a = array();
       foreach ( $fields as $f ) {
         $keyVal = explode( ':', $f );
@@ -162,6 +172,9 @@
             break;
           case 'file':
             $tmp = array( 'name' => $key, 'field' => $this->toFormField( 'file', $entity, $key, true ) );
+            break;
+          case 'enum':
+            $tmp = array( 'name' => $key, 'field' => $this->toFormField( 'enum', $entity, $key, true ) );
             break;
         }
         array_push( $a, $tmp );
@@ -192,10 +205,12 @@
           break;
         case 'file':
           $s = '<input type="file" name="' . $key . '" />';
-          /*$s = $isUpdate ?
-            '<img name="' . $key . '" src="' . $value . '" />':
-            '<img name="' . $key . '" src="' . base_url('public/images/uploads/image.png') . '" />';
-          $s .= $t;*/
+        break;
+        case 'enum':
+          $sSelected = 'set_value(\'' . $key . '\',  $' . $cml . '->' . $key . ')';
+          $s = $isUpdate ?
+            '<?php echo form_dropdown(\'' . $key . '\', $' . plural($key) . ', ' . $sSelected . '); ?>' :
+            '<?php echo form_dropdown(\'' . $key . '\', $' . plural($key) . '); ?>';
         break;
       }
       return $s;

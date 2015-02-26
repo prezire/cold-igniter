@@ -11,7 +11,7 @@ $config = array
 		{ 
 			$m = $meths[$a];
 ?>
-'	<?php echo $entity . '/' . $m; ?>' => array
+'<?php echo $entity . '/' . $m; ?>' => array
 	(
 		array('field' => '', 'label' => '', 'rules' => '')
 	)<?php if($a < $i - 1){ ?>,
