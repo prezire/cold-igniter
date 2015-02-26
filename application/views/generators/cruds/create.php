@@ -1,5 +1,5 @@
 <div id="<?php echo $entity; ?>" class="create row">
-  <h4></h4>
+  <h4><?php echo humanize($entity); ?></h4>
   <?php $ctrl = str_replace('_', '', $entity); ?>
   <?php echo '<?php'; ?> 
     echo validation_errors();

@@ -1,5 +1,5 @@
 <div id="<?php echo $entity; ?>" class="update row">
-  <h4></h4>
+  <h4><?php echo humanize($entity); ?></h4>
   <?php 
     $ctrl = str_replace('_', '', $entity);
     $cml = camelize($entity);

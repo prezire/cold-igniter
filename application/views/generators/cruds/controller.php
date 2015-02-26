@@ -78,8 +78,17 @@ class <?php echo $className; ?> extends CI_Controller
       showView('<?php echo $plr; ?>/update', $a);
     }
   }
-	public final function delete($id)
+	public final function delete($id, $format = 'html')
   {
-    showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $cml; ?>_model->delete($id)->row()));
+    switch($format)
+    {
+      case 'html':
+        $this-><?php echo $cml; ?>_model->delete($id);
+        redirect(site_url('$entity'));
+      break;
+      case 'json':
+        showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $cml; ?>_model->delete($id)->row()));
+      break;
+    }
   }
 }
