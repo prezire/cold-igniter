@@ -23,11 +23,13 @@
         <li class="has-dropdown">
           <a href="#">Auth</a>
           <ul class="dropdown">
+            <?php if(hasPrivilege('User')){ ?>
             <li>
               <a href="<?php echo site_url('user'); ?>">
                 Users
               </a>
             </li>
+            <?php } ?>
             <li>
               <a href="<?php echo site_url('role'); ?>">
                 Roles

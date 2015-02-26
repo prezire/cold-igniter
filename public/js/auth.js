@@ -8,7 +8,7 @@ function Auth()
 	this.setListeners = function()
 	{
 		var o = this;
-		$('#permission.userPermission .privilege > input').on
+		$('#permission.userPermission .privilege input').on
 		(
 			'change', 
 			function()
@@ -18,7 +18,7 @@ function Auth()
 				var uId = p.attr('userId');
 				var privId = p.attr('privilegeId');
 				var bChecked = t.is(':checked');
-				var perms = p.find('.permissions > input');
+				var perms = p.find('.permissions input');
 				var url = o.siteUrl + 
 						'/permission/updateUserPrivilege/' +
 						uId + '/' + 
@@ -44,13 +44,13 @@ function Auth()
 				);
 			}
 		);
-		$('#permission.userPermission .permissions > input').on
+		$('#permission.userPermission .permissions input').on
 		(
 			'change', 
 			function()
 			{
 				var t = $(this);
-				var p = t.parent().parent();
+				var p = t.parent().parent().parent();
 				var uId = p.attr('userId');
 				var permId = t.attr('id');
 				var privId = p.attr('privilegeId');

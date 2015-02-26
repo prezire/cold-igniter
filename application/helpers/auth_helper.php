@@ -55,14 +55,13 @@
 		$CI = get_instance();
 		$CI->load->model( 'permissionmodel' );
 		$b = $CI->permissionmodel->readHasPrivilege( $privilegeName );
-		if ( $b ) return true;
-		else redirect( site_url( 'auth/login' ) );
+		return $b;
 	}
 	/*
 		Usage:
-		//All permissions to such privilege.
+		//All permissions to privilege. Equivalent to hasPrivilege('Page').
 		if(hasPermissions('Page')){...}
-		//Specific permissions to such privilege.
+		//Specific permissions to privilege.
 		if(hasPermissions('Page', array('Create', 'Update'))){...}
 	*/
 	function hasPermissions(
@@ -72,6 +71,5 @@
 		$CI = get_instance();
 		$CI->load->model( 'permissionmodel' );
 		$b = $CI->permissionmodel->readHasPermissions( $privilegeName, $permissions );
-		if ( $b ) return true;
-		else redirect( site_url( 'auth/login' ) );
+		return $b;
 	}

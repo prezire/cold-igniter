@@ -96,29 +96,43 @@
 				array('name' => $privilegeName)
 			)->row()->id;
 			$uId = getLoggedUser()->id;
-			return $this->hasPrivilege($uId, $pId);
+			$b = $this->hasPrivilege($uId, $pId);
+			return $b;
 		}
 		public final function readHasPermissions
 		(
 			$privilegeName, 
-			$permissions = array('Create', 'Read', 'Update', 'Delete')
+			$requestedPermissions = array('Create', 'Read', 'Update', 'Delete')
 		)
 		{
 			$bPriv = $this->readHasPrivilege($privilegeName);
+			if(!$bPriv) return false;
+			//
 			$i = 0;
-			$aPerms = $this->db->get('permissions')->result();
-			foreach($aPerms as $ap)
+			$privId = $this->db->get_where
+			(
+				'privileges', 
+				array('name' => $privilegeName)
+			)->row()->id;
+			$this->db->select('pm.id, pm.name');
+			$this->db->from('permissions pm');
+			$this->db->join('privilege_permissions pp', 'pp.permission_id = pm.id');
+			$this->db->join('privileges pv', 'pp.privilege_id = pv.id');
+			$this->db->where('pp.user_id', getLoggedUser()->id);
+			$this->db->where('pv.id', $privId);
+			$aPerms = $this->db->get()->result();
+			foreach($requestedPermissions as $rp)
 			{
-				foreach($permissions as $p)
+				foreach($aPerms as $p)
 				{
-					if(p == $ap->name)
+					if($p->name == $rp)
 					{
 						$i++;
 						break;
 					}
 				}
 			}
-			$bPerm = count($permissions) == $i;
+			$bPerm = count($requestedPermissions) == $i;
 			return $bPerm && $bPriv;
 		}
 		private final function hasPrivilege($userId, $privilegeId)
