@@ -1,5 +1,14 @@
 <div id="permission" class="index">
 	<h4>Permissions</h4>
+
+	<p>
+		You can create custom Privileges for different 
+		users by going to Auth > Privilages and assigning them 
+		to users in the Auth > User Permissions area. 
+		Then you can update Permissions for each Privilege and 
+		control what access a user can have.
+	</p>
+
 	<a href="<?php echo site_url('permission/create'); ?>" class="button tiny">
 		New Permission
 	</a>

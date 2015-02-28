@@ -18,16 +18,16 @@
 	<link rel="stylesheet" href="<?php echo base_url('public/libs/font-awesome-4.2.0/css/font-awesome.min.css'); ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('public/libs/jquery-ui-1.8.21.custom/development-bundle/themes/base/jquery.ui.all.css'); ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('public/libs/foundation-icons/foundation-icons/foundation-icons.css'); ?>" />
+	<link rel="stylesheet" href="<?php echo base_url('public/libs/lightbox-2.7.1/css/lightbox.css'); ?>" rel="stylesheet" />
 	<link rel="stylesheet" href="<?php echo base_url('public/css/base.css'); ?>" />
 
 	<script src="<?php echo base_url('public/libs/foundation-5.4.7/js/vendor/modernizr.js'); ?>"></script>
 	<script src="<?php echo base_url('public/libs/jquery-2.0.1.min.js'); ?>"></script>
-	
 	<script src="<?php echo base_url('public/libs/jquery-ui-1.8.21.custom/development-bundle/jquery-1.7.2.js'); ?>"></script>
 	<script src="<?php echo base_url('public/libs/jquery-ui-1.8.21.custom/development-bundle/ui/jquery.ui.core.js'); ?>"></script>
 	<script src="<?php echo base_url('public/libs/jquery-ui-1.8.21.custom/development-bundle/ui/jquery.ui.widget.js'); ?>"></script>
 	<script src="<?php echo base_url('public/libs/jquery-ui-1.8.21.custom/development-bundle/ui/jquery.ui.datepicker.js'); ?>"></script>
-
+	<script src="<?php echo base_url('public/libs/lightbox-2.7.1/js/lightbox.min.js'); ?>"></script>
 	<script src="<?php echo base_url('public/libs/amcharts_3.13.0.free/amcharts/amcharts.js'); ?>"></script>
 	<script src="<?php echo base_url('public/libs/amcharts_3.13.0.free/amcharts/serial.js'); ?>"></script>
 	<script src="<?php echo base_url('public/libs/amcharts_3.13.0.free/amcharts/themes/dark.js'); ?>"></script>

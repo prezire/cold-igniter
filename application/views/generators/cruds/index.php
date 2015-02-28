@@ -1,6 +1,6 @@
 <div id="<?php echo $entity; ?>" class="index row">
   <h4><?php $title = humanize(plural($entity)); echo $title; ?></h4>
-  	<a href="<?php echo '<?php echo base_url(\'' . $entity . '/create\'); ?>'; ?>" class="button radius small">New <?php echo singular($title); ?></a>
+  	<a href="<?php echo '<?php echo base_url(\'' . $entity . '/create\'); ?>'; ?>" class="button tiny">New <?php echo singular($title); ?></a>
 	<table>
 		<thead>
 			<tr>

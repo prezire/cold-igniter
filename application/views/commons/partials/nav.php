@@ -16,8 +16,29 @@
     <ul class="right">
       <li><a href="<?php echo site_url('home'); ?>">Home</a></li>
       <?php if(isLoggedIn()){ ?>
-        <li><a href="<?php echo site_url('home/gallery'); ?>">Gallery</a></li>
-        <li><a href="<?php echo site_url('home/search'); ?>">Search</a></li>
+        <li><a href="<?php echo site_url('gallery'); ?>">Gallery</a></li>
+        <li><a href="<?php echo site_url('search'); ?>">Search</a></li>
+
+        <li class="has-dropdown">
+          <a href="#">Content</a>
+          <ul class="dropdown">
+            <li>
+              <a href="<?php echo site_url('file'); ?>">
+                Files
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo site_url('comment'); ?>">
+                Comments
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo site_url('plugins'); ?>">
+                Plug-ins
+              </a>
+            </li>
+          </ul>
+        </li>
         
 
         <li class="has-dropdown">
@@ -55,10 +76,35 @@
               <a href="<?php echo site_url('user/update/' . $u->id); ?>">
                 Profile
               </a>
+
+              <?php 
+                  $bSuperAdmin = getRoleName() == 'Super Administrator' && !getHasOriginalUser();
+                  if($bSuperAdmin)
+                  {
+                ?>
+                  <div id="loginAs" class="reveal-modal" data-reveal>
+                    <h5>Log In As...</h5>
+                    <input type="email" name="email" placeholder="Email*" />
+                    <input type="password" name="password" placeholder="Password*" />
+                    <button class="tiny">Login</button>
+                    <a class="close-reveal-modal">&#215;</a>
+                  </div>
+                <?php } ?>
+
+                <?php if($bSuperAdmin){ ?> 
+                  <a href="#" data-reveal-id="loginAs">(Login As...)</a>
+                <?php } ?>
+
+                <?php if(getHasOriginalUser()){ ?>
+                <a href="<?php echo site_url('auth/logoutAs'); ?>">
+                  (Logout As...)
+                </a>
+                <?php } ?>
+
             </li>
             <li>
               <a href="<?php echo site_url('auth/logout'); ?>">
-                Log Out (<?php echo $u->full_name; ?>)
+                Logout (<?php echo $u->full_name; ?>)
               </a>
             </li>
 

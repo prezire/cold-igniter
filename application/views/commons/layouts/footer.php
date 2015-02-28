@@ -14,10 +14,14 @@
       $(document).foundation();
       $(document).ready(function(){
       	var c = new ColdIgniter();
-      	c.siteUrl = '<?php echo site_url(); ?>';
+      	var siteUrl = '<?php echo site_url(); ?>';
+      	c.siteUrl = siteUrl;
       	c.init();
       	$('img').imgLiquid();
       	$('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+      	var a = new Auth();
+		a.siteUrl = siteUrl;
+		a.init();
       });
     </script>
 	</body>

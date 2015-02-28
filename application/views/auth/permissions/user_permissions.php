@@ -1,6 +1,8 @@
-<div id="permission" class="userPermission row">
+<div id="permission" class="userPermission">
 
 	<h4>User Permissions</h4>
+
+	
 
 	<?php foreach($users as $u){ ?>
 		<div class="row">
@@ -64,13 +66,5 @@
 
 		  </div>
 		</div>
-	<?php } ?>	
-
-	<script>
-		$(document).ready(function(){
-			var a = new Auth();
-			a.siteUrl = '<?php echo site_url(); ?>';
-			a.init();
-		});
-	</script>
+	<?php } ?>
 </div>

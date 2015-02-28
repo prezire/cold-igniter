@@ -60,7 +60,7 @@
       {
         if($this->form_validation->run('<?php echo $entity; ?>/update'))
         {
-          $this-><?php echo $mdl; ?>->update()->row();
+          $this-><?php echo $mdl; ?>->update();
           redirect(site_url('<?php echo $entity; ?>/update/' . $this->input->post('id')));
         }
         else
@@ -79,10 +79,10 @@
       {
         case 'html':
           $this-><?php echo $cml; ?>_model->delete($id);
-          redirect(site_url('$entity'));
+          redirect(site_url('<?php echo $entity; ?>'));
         break;
         case 'json':
-          showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $cml; ?>_model->delete($id)->row()));
+          showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $cml; ?>model->delete($id)->row()));
         break;
       }
     }

@@ -1,5 +1,13 @@
 <div id="permission" class="index">
 	<h4>Privileges</h4>
+
+	<p>
+		Privilages are associated with all the Pages and / or 
+		Modules. Each Privilege contains Permissions in order
+		for you to granularly control a user's access to each
+		Privilege by going to Auth > User Permissions. 
+	</p>
+
 	<a href="<?php echo site_url('privilege/create'); ?>" class="button tiny">
 		New Privilege
 	</a>

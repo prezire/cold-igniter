@@ -1,7 +1,22 @@
 <?php
-	function getLoggedUser() {
+	function getLoggedUser() 
+	{
 		$CI = get_instance();
 		return $CI->session->userdata( 'user' );
+	}
+	function getRoleName()
+	{
+		$CI = get_instance();
+		$CI->load->model('rolemodel');
+		$s = $CI->rolemodel->read(getLoggedUser()->role_id)->row()->name;
+		return $s;
+	}
+	function getHasOriginalUser()
+	{
+		$CI = get_instance();
+		$s = $CI->session->userdata('originalUser');
+		$b = $s != '';
+		return $b;
 	}
 	function isLoggedIn() {return getLoggedUser() != null;}
 	/*

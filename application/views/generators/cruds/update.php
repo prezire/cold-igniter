@@ -19,7 +19,7 @@
   </div>
     <div class="row">
       <div class="small-12 medium-12 large-12 columns">
-        <a href="<?php echo '<?php echo site_url('; ?>'<?php echo $ctrl; ?>/update/' <?php echo ' . $' . $cml . '->id'; ?>); <?php echo '?>'; ?>" class="button tiny alert">Cancel</a>
+        <a href="<?php echo '<?php echo site_url('; ?>'<?php echo $ctrl; ?>/update/' <?php echo ' . $' . $cml . '->id'; ?>); <?php echo '?>'; ?>" class="button tiny alert">Back</a>
         <button class="button tiny">Update</button>
       </div>
     </div>

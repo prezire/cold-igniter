@@ -43,7 +43,7 @@
 	#auth.login .btnFb{margin: 4px 0; display: block;}
 	#permission.userPermission .panel.radius,
 	#permission.userPermission .users.panel .row .row{padding: 0;}
-	#permission.userPermission .users.panel.radius{padding: 17px;}
+	#permission.userPermission .users.panel.radius{padding: 4px 17px;}
 	#permission.userPermission input[type='checkbox']{margin: 4px;}
 	#permission.userPermission .permissions > div{display: block;}
 	/*/Auth.*/

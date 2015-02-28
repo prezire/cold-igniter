@@ -8,6 +8,29 @@ function Auth()
 	this.setListeners = function()
 	{
 		var o = this;
+		$('#loginAs button').click(function(e) {
+			e.preventDefault();
+			var m = $('#loginAs input[type="email"]').val();
+			var p = $('#loginAs input[type="password"]').val();
+			var d = {email: m, password: p};
+			$.ajax({
+				url: o.siteUrl + '/auth/loginAs',
+				type: 'POST', 
+				data: d,
+				success: function(response){
+					if(response.status == 'success')
+					{
+						document.location.href = o.siteUrl + 
+												'/user/update/' + 
+												response.user_id
+					}
+					else
+					{
+						//Show error.
+					}
+				}
+			});
+		});
 		$('#permission.userPermission .privilege input').on
 		(
 			'change', 
