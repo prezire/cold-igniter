@@ -17,6 +17,7 @@
     <div class="small-12 medium-12 large-6 columns">Title: <?php echo form_dropdown('title', $titles); ?></div>
     <div class="small-12 medium-12 large-6 columns">Email: <input type="email" name="email" /></div>
     <div class="small-12 medium-12 large-6 columns">Password: <input type="password" name="password" /></div>
+    <div class="small-12 medium-12 large-12 columns">Description: <textarea name="description"></textarea></div>
     <div class="small-12 medium-12 large-6 columns">Date Of Birth: <input type="text" class="datepicker" name="date_of_birth" /></div>
     <div class="small-12 medium-12 large-6 columns">Address: <input type="text" name="address" /></div>
     <div class="small-12 medium-12 large-6 columns">City: <input type="text" name="city" /></div>

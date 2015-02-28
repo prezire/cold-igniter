@@ -37,8 +37,16 @@
           'descriptions' => array('email', 'country')
         )
       );
-      The ID field will be concatenated in the href.
-      The method will return the href, title and description. 
+      Description of the param keys:
+      - name = is the name of the table to search.
+      - fields = the list of fields of the table to look for keywords.
+      - orders = the field to be used for sorting the results.
+      - href = the URL used by the view that will be used as anchor.
+        The ID field will be concatenated in the href.
+      - titles = The list of fields wherein their values are 
+        displayed as the title for each item.
+      - descriptions = The list of fields wherein their values
+        are displayed as the description of each item.
     */
     public final function search($table)
     {

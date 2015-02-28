@@ -49,10 +49,11 @@
 	/*/Auth.*/
 
 	/*Search.*/
+	#search.results .button.tiny{margin: 4px 0;}
+	#search.index button.tiny,
 	#search.results .result{padding: 0;}
 	#search.results .result a{display: block;}
-	#search.results .result a,
-	#search.results .result .description{ margin-bottom: 4px;}
+	#search.results .result .description{margin-bottom: 4px;}
 	#search.results > .row{margin: 0;}
 	#search.results .result
 	{

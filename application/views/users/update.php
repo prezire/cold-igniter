@@ -30,6 +30,7 @@
     <div class="small-12 medium-12 large-6 columns">Full Name: <input type="text" name="full_name" value="<?php echo set_value('full_name', $user->full_name); ?>" /></div>
     <div class="small-12 medium-12 large-6 columns">Email: <input type="email" name="email" value="<?php echo set_value('email', $user->email); ?>" /></div>
     <div class="small-12 medium-12 large-6 columns">Password: <input type="password" name="password" value="<?php echo set_value('password', $user->password); ?>" /></div>
+    <div class="small-12 medium-12 large-12 columns">Description: <textarea name="description"><?php echo set_value('description', $user->description); ?></textarea></div>
     <div class="small-12 medium-12 large-6 columns">
       Role:
       <?php

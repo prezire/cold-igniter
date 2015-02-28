@@ -1,6 +1,9 @@
 <div id="search" class="results">
 	<h4>Search Results</h4>
 	<p>Results for <i><?php echo $keywords; ?></i></p>
+	<a href="<?php echo site_url('search'); ?>" class="button tiny">
+		Search again
+	</a>
 	<div class="row">
 		<?php 
 			foreach($results as $items)
@@ -22,6 +25,6 @@
 		?>
 	</div>
 	<a href="<?php echo site_url('search'); ?>" class="button tiny">
-		Search again.
+		Search again
 	</a>
 </div>
