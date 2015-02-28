@@ -47,6 +47,19 @@
 	#permission.userPermission input[type='checkbox']{margin: 4px;}
 	#permission.userPermission .permissions > div{display: block;}
 	/*/Auth.*/
+
+	/*Search.*/
+	#search.results .result{padding: 0;}
+	#search.results .result a{display: block;}
+	#search.results .result a,
+	#search.results .result .description{ margin-bottom: 4px;}
+	#search.results > .row{margin: 0;}
+	#search.results .result
+	{
+		border-bottom: 1px solid #ccc;
+		margin: 8px 0;
+	}
+	/*/Search.*/
 } 
 
  /* min-width 641px, medium screens */
