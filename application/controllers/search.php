@@ -39,19 +39,26 @@
     {
       if($this->input->post())
       {
-        $results = array();
-        $tables = $this->getSearchableTables();
-        foreach($tables as $t)
+        if($this->validation->run('search'))
         {
-          $r = $this->searchmodel->search($t);
-          array_push($results, $r);
+          $results = array();
+          $tables = $this->getSearchableTables();
+          foreach($tables as $t)
+          {
+            $r = $this->searchmodel->search($t);
+            array_push($results, $r);
+          }
+          $a = array
+          (
+            'results' => $results,
+            'keywords' => $this->input->post('keywords')
+          );
+          showView('searches/results', $a);
         }
-        $a = array
-        (
-          'results' => $results,
-          'keywords' => $this->input->post('keywords')
-        );
-        showView('searches/results', $a);
+        else
+        {
+          showView('searches', array('status' => 'error', 'messsage' => 'Empty.'));
+        }
       } 
     }
   	public final function index(){showView('searches/index');}

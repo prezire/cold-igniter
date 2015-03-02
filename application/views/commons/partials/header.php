@@ -12,7 +12,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta name="apple-mobile-web-app-title" content="" />
 	
-	<title>Cold Igniter</title>
+	<title>ColdIgniter</title>
 	
 	<link rel="stylesheet" href="<?php echo base_url('public/libs/foundation-5.4.7/css/foundation.css'); ?>" />
 	<link rel="stylesheet" href="<?php echo base_url('public/libs/font-awesome-4.2.0/css/font-awesome.min.css'); ?>" />
@@ -38,5 +38,6 @@
 	<!--script src="<?php //echo base_url('public/js/socials/fb.js'); ?>"></script-->
 	<script src="<?php echo base_url('public/libs/mtree.js'); ?>"></script>
 	<script src="<?php echo base_url('public/js/auth.js'); ?>"></script>
+	<script src="<?php echo base_url('public/js/analytics.js'); ?>"></script>
 	<script src="<?php echo base_url('public/js/base.js'); ?>"></script>
 </head>

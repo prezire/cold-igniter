@@ -1,4 +1,4 @@
-Cold Igniter
+ColdIgniter
 ============
 by prezire
 prezire@gmail.com
@@ -19,6 +19,7 @@ Inspired by my lazy self. Includes simple features to make you more productive t
   - Masonry
 - See application/views/generators/auth for basic Auth files such as login and register
 - PayPal
+  - Refer to libraries/sparks/payments
 	- Basic payments using DirectPayment and ExpressCheckout
 	- Recurring payment to be included
     - http://tareqalam.com/2010/07/07/paypal-recurring-payment-integrated-with-codeigniter/

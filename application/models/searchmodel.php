@@ -86,6 +86,8 @@
         {
           $tmpDescr .=  ' ' .$r[$descr];
         }
+        $tmpTitle = str_ireplace($k, '<b>' . $k . '</b>', $tmpTitle);
+        $tmpDescr = str_ireplace($k, '<b>' . $k . '</b>', $tmpDescr);
         //
         $a = array
         (

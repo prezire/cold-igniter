@@ -32,14 +32,8 @@
                 Comments
               </a>
             </li>
-            <li>
-              <a href="<?php echo site_url('plugins'); ?>">
-                Plug-ins
-              </a>
-            </li>
           </ul>
         </li>
-        
 
         <li class="has-dropdown">
           <a href="#">Auth</a>
@@ -112,6 +106,7 @@
         </li>
 
         <li><a href="<?php echo site_url('analytics'); ?>">Analytics</a></li>
+        <li><a href="<?php echo site_url('payment'); ?>">Payments</a></li>
 
       <?php } else{ ?>
         <li>

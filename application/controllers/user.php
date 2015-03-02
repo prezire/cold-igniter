@@ -80,6 +80,6 @@ class User extends CI_Controller
   }
 	public final function delete($id)
   {
-    showJsonView(array('user' => $this->user_model->delete($id)->row()));
+    showJsonView(array('user' => $this->usermodel->delete($id)->row()));
   }
 }

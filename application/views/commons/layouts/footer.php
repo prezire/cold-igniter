@@ -4,7 +4,7 @@
 		<div class="row">
 		  <div class="small-12 medium-12 large-12 columns">
 		  	<footer>
-				Copyright &copy; 2015 Cold Igniter by 
+				Copyright &copy; 2015 ColdIgniter by 
 				<a href="http://www.simplifie.net" target="_blank">Simplifie</a>. All Rights Reserved.
 			</footer>
 		  </div>
@@ -17,7 +17,7 @@
       	var siteUrl = '<?php echo site_url(); ?>';
       	c.siteUrl = siteUrl;
       	c.init();
-      	$('img').imgLiquid();
+      	$('img').parent().imgLiquid();
       	$('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
       	var a = new Auth();
 		a.siteUrl = siteUrl;
