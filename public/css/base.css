@@ -31,6 +31,7 @@
 	.ui-widget-content .ui-state-highlight, 
 	.ui-widget-header .ui-state-highlight{border: 1px solid #008CBA;}
 	table.list .options{width: 150px; text-align: center;}
+	nav .logo{width: 167px; height: 43px};
 	/*/Commons.*/
 
 	/*Auth.*/
@@ -72,11 +73,47 @@
 	/*/Analytics.*/
 
 	/*Gallery.*/
+	#gallery.index li
+	{
+		position: relative; 
+		text-align: center;
+		padding: 4px;
+		padding-top: 12px;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	#gallery.index li i
+	{
+		position: absolute; 
+		margin: auto; 
+		left: 0; 
+		right: 0; 
+		top: 45%;
+		width: 15px; 
+		height: 15px;
+		color: #fff;
+		display: none;
+		padding: 22px;
+		padding-left: 8px;
+		padding-top: 8px;
+		background-color: #ccc;
+		border-radius: 4px;
+	}
 	#gallery.index .row.panel{padding: 8px; margin-bottom: 8px;}
 	#gallery.index .row .columns{padding: 0;}
 	#gallery.index .row.panel input[type="submit"],
 	#gallery.index .row.panel input[type="file"]{margin: 0;}
-	#gallery .image{display: block; width: 150px; height: 150px;}
+	#gallery .image
+	{
+		position: relative;
+		display: block; 
+		width: 85px; 
+		height: 85px; 
+		margin: auto;
+		margin-bottom: 16px;
+	}
+	#gallery .image:hover > i{display: block;}
+	#gallery.update .options{padding: 0;}
 	/*/Gallery.*/
 } 
 
@@ -86,6 +123,10 @@
 	/*Auth.*/
 	#permission.userPermission .permissions > div{display: inline;}
 	/*/Auth.*/
+
+	/*Gallery.*/
+	#gallery .image{width: 150px; height: 150px;}
+	/*/Gallery.*/
 }
 
 /* min-width 1025px, large screens */

@@ -51,6 +51,37 @@
       return null;
     }
   }
+  function multiUpload($fieldName = 'files')
+  {
+    $CI = get_instance();
+    $CI->load->library('multi_upload/my_upload');
+    $c = array
+    (
+      'upload_path' => 'public/uploads/', 
+      'allowed_types' => 'gif|jpg|png',
+      'encrypt_name' => true
+    );
+    $CI->my_upload->initialize($c);
+    if($CI->my_upload->do_multi_upload($fieldName))
+    {
+      $data = $CI->my_upload->get_multi_upload_data();
+      $l = array();
+      foreach($data as $d)
+      {
+        $a = array
+        (
+          'filename' => $d['file_name'], 
+          'original_filename' => $d['orig_name']
+        );
+        array_push($l, $a);
+      }
+      return $l;
+    }
+    else
+    {
+      show_error($CI->my_upload->display_errors()); 
+    } 
+  }
   function sendEmailer
   (
     $subject, 

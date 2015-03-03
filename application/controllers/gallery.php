@@ -4,6 +4,7 @@
   class Gallery extends CI_Controller {
     public function __construct(){
       parent::__construct();
+      validateLoginSession();
       $this->load->model('gallerymodel');
     }
   	public final function index()
@@ -15,15 +16,8 @@
     {
       if($this->input->post())
       {
-        $b = $this->gallerymodel->create();
-        if($b)
-        {
-          redirect(site_url('gallery'));
-        }
-        else
-        {
-          show_error('Error uploading');
-        }
+        $this->gallerymodel->create();
+        redirect(site_url('gallery'));
       }
     }
     public final function read(){}
@@ -43,8 +37,13 @@
     }
     public final function delete($id)
     {
-      //TODO: If success, remove file from uploads folder.
-      $this->gallerymodel->delete($id);
-      redirect(site_url('gallery'));
+      $f = $this->gallerymodel->read($id)->row()->filename;
+      $s = 'public/uploads/' . $f;
+      $b = unlink($s);
+      if($b)
+      {
+        $this->gallerymodel->delete($id);
+        redirect(site_url('gallery'));
+      }
     }
 }

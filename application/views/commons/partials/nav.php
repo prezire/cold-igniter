@@ -16,12 +16,16 @@
     <ul class="right">
       <li><a href="<?php echo site_url('home'); ?>">Home</a></li>
       <?php if(isLoggedIn()){ ?>
-        <li><a href="<?php echo site_url('gallery'); ?>">Gallery</a></li>
         <li><a href="<?php echo site_url('search'); ?>">Search</a></li>
 
         <li class="has-dropdown">
           <a href="#">Content</a>
           <ul class="dropdown">
+            <li>
+              <a href="<?php echo site_url('gallery'); ?>">
+              Gallery
+              </a>
+            </li>
             <li>
               <a href="<?php echo site_url('file'); ?>">
                 Files
@@ -32,6 +36,12 @@
                 Comments
               </a>
             </li>
+            <li>
+              <a href="<?php echo site_url('analytics'); ?>">
+                Analytics
+              </a>
+            </li>
+            <li><a href="<?php echo site_url('payment'); ?>">Payments</a></li>
           </ul>
         </li>
 
@@ -104,9 +114,6 @@
 
           </ul>
         </li>
-
-        <li><a href="<?php echo site_url('analytics'); ?>">Analytics</a></li>
-        <li><a href="<?php echo site_url('payment'); ?>">Payments</a></li>
 
       <?php } else{ ?>
         <li>

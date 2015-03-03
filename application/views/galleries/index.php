@@ -25,6 +25,7 @@
 					class="image" 
 					data-lightbox="image" 
 					data-title="<?php echo $i->caption; ?>">
+					<i class="fa fa-search"></i>
 					<img src="<?php echo $img; ?>"></a>
 				</a>
 				<a href="<?php echo site_url('gallery/update/' . $i->id); ?>" 

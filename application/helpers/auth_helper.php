@@ -43,7 +43,7 @@
 	*/
 	function validateLoginSession
 	( 
-		$methodNames = array('Create', 'Read', 'Update', 'Delete'), 
+		$methodNames = array('index', 'create', 'read', 'update', 'delete'), 
 		$type = 'include' 
 	) {
 		$CI = get_instance();
@@ -51,18 +51,12 @@
 		$b = in_array( $m, $methodNames );
 		switch ( $type ) {
 		case 'include':
-			if ( $b ) {
-				if ( !isLoggedIn() ) {
-					redirect( site_url( 'auth/login' ) );
-				}
-			}
+			if (!$b || !isLoggedIn()) 
+				redirect( site_url( 'auth/login' ) );
 			break;
 		case 'exclude':
-			if ( !$b ) {
-				if ( !isLoggedIn() ) {
-					redirect( site_url( 'auth/login' ) );
-				}
-			}
+			if (!$b || !isLoggedIn()) 
+				redirect( site_url( 'auth/login' ) );
 			break;
 		}
 	}
