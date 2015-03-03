@@ -39,7 +39,7 @@
     {
       if($this->input->post())
       {
-        if($this->validation->run('search'))
+        if($this->form_validation->run('search'))
         {
           $results = array();
           $tables = $this->getSearchableTables();
@@ -57,7 +57,14 @@
         }
         else
         {
-          showView('searches', array('status' => 'error', 'messsage' => 'Empty.'));
+          $a = array
+          (
+            'results' => array(),
+            'status' => 'error', 
+            'messsage' => 'Empty.',
+            'keywords' => $this->input->post('keywords')
+          );
+          showView('searches/results', $a);
         }
       } 
     }

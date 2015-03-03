@@ -6,8 +6,11 @@
 	</a>
 	<div class="row">
 		<?php 
+			$bEmpty = true;
 			foreach($results as $items)
 			{
+				$bEmpty = count($items) < 1;
+				if($bEmpty) break;
 				foreach($items as $i)
 				{
 		?>
@@ -24,7 +27,9 @@
 			}  
 		?>
 	</div>
+	<?php if(!$bEmpty){ ?>
 	<a href="<?php echo site_url('search'); ?>" class="button tiny">
 		Search again
 	</a>
+	<?php } ?>
 </div>

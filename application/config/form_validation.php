@@ -2,6 +2,15 @@
 
   $config = array
   (
+    'search' => array
+    (
+      array
+      (
+        'field' => 'keywords',
+        'label' => 'Keywords',
+        'rules' => 'required|trim|xss_clean'
+      )
+    ),
     'auth/login' => array
     (
       array

@@ -41,7 +41,11 @@
                 Analytics
               </a>
             </li>
-            <li><a href="<?php echo site_url('payment'); ?>">Payments</a></li>
+            <li>
+              <a href="<?php echo site_url('payment'); ?>">
+                Payments
+              </a>
+            </li>
           </ul>
         </li>
 
