@@ -6,7 +6,7 @@
 	</a>
 	<div class="row">
 		<?php 
-			$bEmpty = true;
+			$bEmpty = true;	
 			foreach($results as $items)
 			{
 				$bEmpty = count($items) < 1;
