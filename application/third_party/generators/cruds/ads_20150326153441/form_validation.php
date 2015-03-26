@@ -1,12 +1,12 @@
 <?php
 $config = array
 (
-	'comment/create' => array
+	'ad/create' => array
 	(
 		array('field' => '', 'label' => '', 'rules' => '')
 	),
-		'comment/update' => array
+		'ad/update' => array
 	(
 		array('field' => '', 'label' => '', 'rules' => '')
-	)		
+	)	
 );

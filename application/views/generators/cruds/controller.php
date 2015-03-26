@@ -8,6 +8,9 @@
   $mdl = strtolower($cml) . 'model';
   $plr = plural($entity);
 ?> 
+  //<?php echo $command; ?>
+
+  
   if(!defined('BASEPATH')) 
     exit('No direct script access allowed');
   class <?php echo $className; ?> extends CI_Controller 

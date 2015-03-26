@@ -24,6 +24,7 @@
     public final function crud() {
       if ( $this->input->is_cli_request() ) {
         $params = $_SERVER['argv'];
+        //
         $fields = array();
         $len = $_SERVER['argc'];
         for ( $a = 4; $a < $len; $a++ ) {array_push( $fields, $params[$a] );}
@@ -38,14 +39,20 @@
           mkdir( $this->sCrudViewFldr );
           $this->echoFileCreated( 'New directory', $this->sCrudViewFldr );
         }
+        //Record last executed CLI command in the controller.
+        $sCmd = 'php';
+        foreach ($params as $p) {
+          $sCmd .= ' ' . $p;
+        }
         //
-        $this->createCrudCtrl( $entity );
+        $this->createCrudCtrl( $sCmd, $entity );
         $this->createCrudMdl( $entity, $fields );
         $this->createCrudViews( $entity, $fields );
         $this->createCrudValidation( $entity );
         $this->createTable( $entity, $fields );
         echo "Done.\n";
       }
+      PHP_EOL;
       exit( 0 );
     }
     private final function createTable( $entity, $fields ) {
@@ -54,6 +61,7 @@
         'int' => 'INT',
         'varchar' => 'VARCHAR(255)',
         'file' => 'VARCHAR(255)',
+        'float' => 'FLOAT(11)', 
         'datetime' => 'DATETIME',
         'text' => 'TEXT',
         'boolean' => 'TINYINT(1)',
@@ -86,12 +94,12 @@
       write_file( $filename . '.sql', $contents );
       $this->echoFileCreated( 'Database table', $filename );
     }
-    private final function createCrudCtrl( $entity ) {
+    private final function createCrudCtrl( $command, $entity ) {
       $filename = $this->sCrudViewFldr . '/' . str_replace( '_', '', $entity );
       $contents = $this->parser->parse
       ( 
         'generators/cruds/controller', 
-        array( 'entity' => $entity ), 
+        array( 'entity' => $entity, 'command' => $command ), 
         true 
       );
       write_file( $filename . '.php', $contents );
@@ -131,6 +139,7 @@
           case 'int':
           case 'varchar':
           case 'datetime':
+          case 'float':
             $tmp = array( 'name' => $key, 'field' => $this->toFormField( 'text', $entity, $key ) );
             break;
           case 'text':
@@ -162,6 +171,7 @@
           case 'int':
           case 'varchar':
           case 'datetime':
+          case 'float':
             $tmp = array( 'name' => $key, 'field' => $this->toFormField( 'text', $entity, $key, true ) );
             break;
           case 'text':
