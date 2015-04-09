@@ -1,6 +1,10 @@
 <div id="<?php echo $entity; ?>" class="index row">
+	<?php
+		$ctrl = str_replace('_', '', $entity);
+		$cml = camelize($entity);
+	?>
   <h4><?php $title = humanize(plural($entity)); echo $title; ?></h4>
-  	<a href="<?php echo '<?php echo base_url(\'' . $entity . '/create\'); ?>'; ?>" class="button tiny">New <?php echo singular($title); ?></a>
+  	<a href="<?php echo '<?php echo base_url(\'' . $ctrl . '/create\'); ?>'; ?>" class="button tiny">New <?php echo singular($title); ?></a>
 	<table>
 		<thead>
 			<tr>
@@ -10,9 +14,6 @@
 		</thead>
 		<tbody>
       <?php
-        $ctrl = str_replace('_', '', $entity);
-				$cml = camelize($entity);
-        //
         $first = substr($cml, 0, 1);
         echo '<?php foreach($' . plural($cml) . ' as $' . $first . '){ ?>';
       ?>

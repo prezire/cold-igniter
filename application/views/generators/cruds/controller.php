@@ -81,11 +81,11 @@
       switch($format)
       {
         case 'html':
-          $this-><?php echo $cml; ?>_model->delete($id);
+          $this-><?php echo $mdl; ?>->delete($id);
           redirect(site_url('<?php echo $entity; ?>'));
         break;
         case 'json':
-          showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $cml; ?>model->delete($id)->row()));
+          showJsonView(array('<?php echo $cml; ?>' => $this-><?php echo $mdl; ?>->delete($id)->row()));
         break;
       }
     }
